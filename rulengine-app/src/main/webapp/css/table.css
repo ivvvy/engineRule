@@ -1,0 +1,51 @@
+.tableBox{
+    border: 1px solid #dddddd;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.tableButton,.conditionVar,.resVar,.rightBox{
+    display: inline-block;
+}
+
+.conditionVar,.resVar{
+    margin-right:20px;
+    font-size: 12px;
+}
+
+.icon-add-round{
+    vertical-align: bottom;
+    background-position: -14px -228px;
+}
+
+.rightBox{
+    margin-left: 20px;
+}
+
+#table>table{
+    border: 1px solid #CCCCCC;
+    max-width: 100%;
+    border-spacing:0 ;
+}
+
+#table table tr{
+
+}
+
+#table table td {
+    text-align: center;
+    font-size: 12px;
+    height: 35px;
+    width: 220px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+#table table tr:last-child td{
+    border-bottom: none;
+}
+
+#table table tr td:last-child {
+    border-right: none;
+}

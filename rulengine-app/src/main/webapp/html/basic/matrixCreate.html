@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>矩阵</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/matrix"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/matrix.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/handsontable.full.min.css"/>
+</head>
+<body>
+    <div id="body">
+        <layout-main path="规则工程->底层->策略->新建决策矩阵">
+            <div slot="content">
+                <div class="mainContent">
+                    <div class="title">新建决策矩阵</div>
+                    <div class="body">
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>名称</span>
+                            <div class="input">
+                                <input type="text" style="width: 350px">
+                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>描述</span>
+                            <div class="input">
+                                <input type="text" style="width: 350px">
+                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>分类</span>
+                            <div class="input">
+                                <input type="text" style="width: 350px">
+                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div style="margin: 20px 0">决策矩阵定义</div>
+                        <div class="variableBox">
+                            <div class="line">
+                                <span class="desc"><span class="redX">*</span>行变量</span>
+                                <div class="input">
+                                    <input class="variableSelect rowsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openRowVarList" v-model="rows.name">
+                                    <button class="segmentation rowModal" @click="syncopateVar">切分表</button>
+                                </div>
+
+                            </div>
+                            <div class="line">
+                                <span class="desc"><span class="redX">*</span>列变量</span>
+                                <div class="input">
+                                    <input class="variableSelect colsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openColVarList" v-model="cols.name">
+                                    <button class="segmentation colModal">切分表</button>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <span class="desc"><span class="redX">*</span>结果变量</span>
+                                <div class="input">
+                                    <input class="variableSelect resultsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openResVarList" v-model="results.name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rightBox">
+                            <right-part v-bind:right="right" v-bind:withfn="true"></right-part>
+                            <button class="btn_success" style="height: 30px;line-height: 30px">确定</button>
+                            <button class="btn_cancel" style="height: 30px;line-height: 30px">取消</button>
+                        </div>
+                        <div class="table">
+                            <table>
+                                <tr v-for="varItem in vars">
+                                    <td>
+                                        <matrix-table></matrix-table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin: 20px 60px;">
+                            <button class="btn_success_empty">编译</button>
+                            <button class="btn_success">保存</button>
+                            <button>取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </layout-main>
+    </div>
+</body>
+</html>

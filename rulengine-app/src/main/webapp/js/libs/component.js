@@ -789,6 +789,84 @@ define(["jquery", "underscore", "vue", 'Utils',
                         console.log("点击查询");
                     }
                 }
-            })
+            }),
+            addSegmentation:Vue.component('syncopate-var', {
+                template: SyncopateVarTpl,
+                props: ["options"],
+                computed: {
+                    comparatorLines: {
+                        get: function () {
+                            if (!this.tempOptions || this.tempOptions.length == 0)
+                                return [{
+                                    leftLine: {
+                                        comparator: "",
+                                        right: {type: "const", value: ""}
+                                    }, rightLine: {
+                                        comparator: "",
+                                        right: {type: "const", value: ""}
+                                    }
+                                }];
+
+                            var filterOptions = _.filter(this.tempOptions, function (item) {
+                                return item.type != "else";
+                            });
+
+                            _.map(filterOptions, function (opt) {
+                                if (!!opt.leftLine && !opt.leftLine.right) Vue.set(opt.leftLine, "right", {
+                                    type: "const",
+                                    value: ""
+                                });
+                                if (!!opt.rightLine && !opt.rightLine.right) Vue.set(opt.rightLine, "right", {
+                                    type: "const",
+                                    value: ""
+                                });
+                                var comparator = [];
+                                if (!!opt.leftLine && !!opt.leftLine.comparator)  comparator.push(opt.leftLine.comparator);
+                                if (!!opt.rightLine && !!opt.rightLine.comparator)  comparator.push(opt.rightLine.comparator);
+                                opt.comparator = comparator.join(",");
+                            });
+
+                            return filterOptions;
+                        },
+                        set: function (value) {
+                            this.tempOptions = value;
+                        }
+                    }
+                },
+                data: function () {
+                    console.log("options:"+JSON.stringify(this.options));
+                    var tempOptions = this.options;
+                    //this.options.temp = {scores: tempOptions};
+                    return {
+                        compartors: Utils.Const.ComparatorList,
+                        tempOptions: tempOptions
+                    };
+                },
+                methods: {
+                    changeComparator: function (line) {
+                        var comparatorItem = _.find(this.compartors, function (item) {
+                            return item.value == line.comparator;
+                        });
+                        if (!!comparatorItem) {
+                            if (!!comparatorItem.leftLine.comparator) line.leftLine.comparator = comparatorItem.leftLine.comparator;
+                            else line.leftLine = comparatorItem.leftLine;
+                            if (!!comparatorItem.rightLine.comparator) line.rightLine.comparator = comparatorItem.rightLine.comparator;
+                            else line.rightLine = comparatorItem.rightLine;
+                        }
+                    },
+                    deleteLine: function (index) {
+                        Vue.delete(this.tempOptions, index);
+                    },
+                    addLine: function () {
+                        var length = Math.max(0, this.tempOptions.length - 1);
+                        this.tempOptions.splice(length, 0, {
+                            leftLine: {},
+                            rightLine: {comparator: "=="},
+                            result: {operator: "=", type: "const", value: ""}
+                        });
+
+                    }
+                }
+            }),
         };
     });

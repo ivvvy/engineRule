@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>决策表格</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/table"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/table.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/handsontable.full.min.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->新建决策表">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">新建决策表</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
+                        <div class="input">
+                            <input type="text" style="width: 350px">
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+                        <div class="input">
+                            <input type="text" style="width: 350px">
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>分类</span>
+                        <div class="input">
+                            <input type="text" style="width: 350px">
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0">决策表定义</div>
+                    <div class="tableBox">
+                        <div class="tableButton">
+                            <div class="conditionVar">
+                                <span class="icons icon-add-round"></span>
+                                插入条件变量
+                            </div>
+                            <div class="resVar">
+                                <span class="icons icon-add-round"></span>
+                                插入结果变量
+                            </div>
+                        </div>
+                        <div class="rightBox" v-if="show">
+                            <select v-model="line.operator" @change="changeOperator">
+                                <option v-for="op in operates" :value="op.value">{{op.name}}</option>
+                            </select>
+                            <right-part v-bind:right="right" v-bind:withfn="true" v-if="line.operator.indexOf('null') < 0"></right-part>
+                            <button class="btn_success" @click="getRightPart" style="height: 30px;line-height: 30px">确定</button>
+                            <button class="btn_cancel" style="height: 30px;line-height: 30px">取消</button>
+                        </div>
+                    </div>
+                    <div id="table">
+                        <table>
+                            <tr v-for="row in rows">
+                                <td v-for="col in row" v-bind:col="col" v-on:click.self="openVarList">
+                                    {{col}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin: 20px 60px;">
+                        <button class="btn_success_empty">编译</button>
+                        <button class="btn_success">保存</button>
+                        <button>取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

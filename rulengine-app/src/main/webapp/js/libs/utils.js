@@ -73,8 +73,8 @@ define(['jquery', 'vue', 'text!html/templates/modal.html', 'text!html/templates/
                 StrategyTypeList: [//策略列表
                     {value: "RULE", name: "规则", createUrl: "ruleCreate.html", detailUrl: "ruleDetail.html"},
                     {value: "TREE", name: "决策树", createUrl: ""},
-                    {value: "TABLE", name: "决策表", createUrl: ""},
-                    {value: "MATRIX", name: "决策矩阵", createUrl: ""},
+                    {value: "TABLE", name: "决策表", createUrl: "tableCreate.html"},
+                    {value: "MATRIX", name: "决策矩阵", createUrl: "matrixCreate.html"},
                     {value: "CARD", name: "评分卡", createUrl: "cardCreate.html", detailUrl: "cardDetail.html"}
                 ],
                 StrategyStatusList: [//策略状态列表
