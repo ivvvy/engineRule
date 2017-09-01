@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>决策树</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/tree"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/jsPlumbTool.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->新增决策树">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">新增决策树</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;"/>
+
+                            <div class="tip">不超过100位，可由英文、数字、中文和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>分类</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>决策树定义</div>
+                    <div class="constraintOuter">
+                        <div id="container" class="layout-bottom">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

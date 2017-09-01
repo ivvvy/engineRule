@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机构管理</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js" data-entry="js/modules/sysManage/orgManage"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="../css/elementUi.css" />
+    <link rel="stylesheet" type="text/css" href="../css/sysManage.css" />
+</head>
+<body>
+    <div id="body">
+        <layout-main path="系统管理->机构管理">
+            <div slot="operate" class="rightTop synchroniz">
+                <button @click="openModal"><span class="icons icon-async"></span>同步机构</button>
+            </div>
+            <div slot="content">
+                <div class="queryArea">
+                    <select v-model="orgData.status">
+                        <option value="">全部状态</option>
+                        <option value="1">启用</option>
+                        <option value="0">停用</option>
+                    </select>
+                    <span>
+                        <span class="areaTip">编号</span>
+                        <input type="text" v-model="orgData.code"/>
+                    </span>
+                    <span>
+                        <span class="areaTip">名称</span>
+                        <input type="text" v-model="orgData.name"/>
+                    </span>
+                    <span>
+                        <span class="areaTip">算话管理员</span>
+                        <input type="text" v-model="orgData.shAdminName"/>
+                    </span>
+                    <button class="btn_sm btn_success" @click="sysSearch">查询</button>
+                    <button class="btn_sm" @click="sysReset">重置</button>
+                </div>
+                <div class="manageComm">
+                    <el-table :data="orgManage" highlight-current-row @cell-mouse-enter="handleMouseEnter" @cell-mouse-leave="handleMouseOut" style="width: 100%;">
+                        <el-table-column prop="code" label="机构编号" sortable min-width="70"></el-table-column>
+                        <el-table-column prop="name" label="机构姓名" sortable min-width="90"></el-table-column>
+                        <el-table-column prop="status" label="机构状态" sortable min-width="70">
+                            <template scope="scope">
+                                <div class="orgOption" @click="changeStatus(scope.row,$event)">{{orgStatus(scope.row.status)}}</div>
+                                <div class="showOrg showEditor icons icon-status-editor" @click="startEdit(scope.row,$event)"></div>
+                                <div class="showOrg showSave icons icon-status-save" @click="startSave(scope.row,$event)"></div>
+                                <div class="showOrg showDelete icons icon-status-delete" @click="startDelete(scope.row,$event)"></div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="contactName" label="联系人姓名" sortable min-width="70"></el-table-column>
+                        <el-table-column prop="email" label="联系人邮箱" sortable min-width="90"></el-table-column>
+                        <el-table-column prop="phone" label="联系人电话" sortable min-width="70"></el-table-column>
+                        <el-table-column prop="shAdminName" label="算话管理员姓名" sortable min-width="70"></el-table-column>
+                    </el-table>
+                </div>
+                <!--工具条-->
+                <div class="manageCommB">
+                    <el-col :span="24" class="toolbar">
+                        <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="currentPage" :page-sizes="[10,30,50]" :page-size="rows" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                        </el-pagination>
+                    </el-col>
+                </div>
+            </div>
+        </layout-main>
+    </div>
+</body>
+</html>

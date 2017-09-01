@@ -1,0 +1,9 @@
+﻿<ul>
+    <li v-for="item in menu.childMenu" v-on:click="openSubMenu" v-bind:class="{open: menulist.indexOf(item.name) >= 0}">
+        <a v-bind:href="item.link | menuLinkFilter" v-bind:class="{active: menulist.indexOf(item.name) >= 0 && menulist.indexOf(menu.name) >= 0}">
+            <span class="name">{{item.name}}</span>
+            <span class="icons icon-arrow-switch" v-if="!!item.childMenu"></span>
+        </a>
+        <submenu v-bind:submenu="item" v-bind:menulist="menulist" v-if="!!item.childMenu"></submenu>
+    </li>
+</ul>

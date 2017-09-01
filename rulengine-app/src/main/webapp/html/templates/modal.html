@@ -1,0 +1,18 @@
+<div class="modal_bg" v-bind:id="'modal_bg_'+ uid">
+    <div class="modal" v-bind:style="'width:' + width + 'px;margin-left:-' + width/2 + 'px;'">
+        <div class="title">
+            <span v-html="title"></span>
+            <span class="icons icon-close" v-on:click="removeModal"></span>
+        </div>
+        <div class="body">
+            <div v-html="body"></div>
+            <component v-bind:is="currentView" v-bind:options="componentParam" v-bind="componentParam"></component>
+        </div>
+        <div class="footer">
+            <button v-bind:class="!!cancelText ? 'btn_success' : 'btn_success_empty'" v-html="okText"
+                    v-if="!!okText" v-on:click="submitOK"></button>
+            <button v-on:click="removeThirdModal" v-html="thirdButtonText" v-if="!!thirdButtonText"></button>
+            <button v-on:click="removeModal" v-html="cancelText" v-if="!!cancelText"></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色详情</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js" data-entry="js/modules/sysManage/roleDetails"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="../css/elementUi.css" />
+    <link rel="stylesheet" type="text/css" href="../css/sysManage.css" />
+</head>
+<body>
+    <div id="body">
+    <layout-main path="系统管理->角色管理->角色详情">
+        <div slot="content">
+            <div class="userEditor">
+                <div class="editorTop">角色详情</div>
+                <div class="editorContent">
+                    <div class="userDetails">
+                        <dl v-for="item in roleDetails">
+                            <dt>{{item.name}}</dt>
+                            <dd>{{item.val}}</dd>
+                        </dl>
+                        <dl class="roleExplain">
+                            <dt>角色权限配置</dt>
+                            <dd>
+                                <div class="box">
+                                    <div class="roleDetailsTree">
+                                        <el-tree style="height: 230px;" :data="roleTree" node-key="id" :default-expanded-keys="[1]" :props="defaultProps">
+                                        </el-tree>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <p></p>
+                        <dl v-for="item in roleBasic">
+                            <dt>{{item.name}}</dt>
+                            <dd>{{item.val}}</dd>
+                        </dl>
+                    </div>
+                    <div class="editorBottom">
+                        <button class="save">编辑</button>
+                        <button calss="cancel"><a href="roleManager.html">返回</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

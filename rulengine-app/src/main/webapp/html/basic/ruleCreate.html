@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>规则</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/rule"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->新建规则">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">新建规则</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.strategyName"
+                                   v-bind:readonly="hasServerData"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.description"/>
+
+                            <div class="tip">不超过100位，可由英文、数字、中文和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>分类</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.sort"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0;">规则定义</div>
+                    <div class="constraintOuter">
+                        <constraint-part v-bind:type="'IF'" v-bind:constraint="ifPart.constraint"
+                                         v-bind:level="1"></constraint-part>
+                        <result-part v-bind:type="'<span class=redX>*</span>THEN'"
+                                     v-bind:result="ifPart.result"></result-part>
+                        <result-part v-bind:type="'ELSE'" v-bind:result="elsePart.result"></result-part>
+                    </div>
+                    <div class="readCode" v-on:click.self="readSourceCode" v-bind:class="openSource?'opened':''">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <div style="margin: 20px 60px;">
+                        <button class="btn_success_empty">编译</button>
+                        <button class="btn_success" v-on:click="saveRule">保存</button>
+                        <button v-on:click="cancelEdit">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

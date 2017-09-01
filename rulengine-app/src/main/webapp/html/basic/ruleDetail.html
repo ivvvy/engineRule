@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>规则</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/rule"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->规则详情">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">规则信息</div>
+                <div class="body">
+                    <div class="detail_line">
+                        <span class="desc">名称</span>
+                        <span>{{formData.strategyName}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">描述</span>
+                        <span>{{formData.description}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">分类</span>
+                        <span>{{formData.sort}}</span>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0;">规则定义</div>
+                    <div class="constraintOuter disabled">
+                        <constraint-part v-bind:type="'IF'" v-bind:constraint="ifPart.constraint"
+                                         v-bind:level="1"></constraint-part>
+                        <result-part v-bind:type="'<span class=redX>*</span>THEN'"
+                                     v-bind:result="ifPart.result"></result-part>
+                        <result-part v-bind:type="'ELSE'" v-bind:result="elsePart.result"></result-part>
+                    </div>
+                    <div class="readCode" v-on:click.self="readSourceCode" v-bind:class="openSource?'opened':''">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <hr>
+                    <div class="detail_line">
+                        <span class="desc">创建人</span>
+                        <span>{{formData.creater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">创建时间</span>
+                        <span>{{formData.createTime}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新人</span>
+                        <span>{{formData.updater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新时间</span>
+                        <span>{{formData.updateTime}}</span>
+                    </div>
+
+                    <div style="margin: 40px 108px 20px;">
+                        <button class="btn_success" v-if="withEdit()" v-on:click="editRule">编辑</button>
+                        <button v-on:click="cancelEdit">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>算话征信决策引擎</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js" data-entry="js/modules/basic/strategyPublish"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/elementUi.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/sysManage.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main module="js/modules/index" path="规则工程->策略发布">
+        <div slot="operate" class="rightTop">
+            <button @click="openModal1"><span class="icons"></span>测试</button>
+        </div>
+        <div slot="content">
+            <div class="manageComm">
+                <el-table :data="strategyManage" highlight-current-row @cell-mouse-enter="handleMouseEnter" @cell-mouse-leave="handleMouseOut" style="width: 100%;">
+                    <el-table-column prop="code" label="版本号" sortable min-width="70"></el-table-column>
+                    <el-table-column prop="status" label="状态" sortable min-width="70">
+                        <template scope="scope">
+                            <span v-if="scope.row.status === 3" style="color: #27C6D3">测试成功</span>
+                            <span v-else-if="scope.row.status === 2" style="color: red">升级失败</span>
+                            <span v-else-if="scope.row.status === 1">发布成功</span>
+                            <span v-else>发布失败</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="testMan" label="测试人" sortable min-width="70"></el-table-column>
+                    <el-table-column prop="testTime" label="测试时间" sortable min-width="120"></el-table-column>
+                    <el-table-column prop="publishMan" label="发布人" sortable min-width="70"></el-table-column>
+                    <el-table-column prop="publishTime" label="发布时间" sortable min-width="120"></el-table-column>
+                    <el-table-column prop="id" label="" min-width="70">
+                        <template scope="scope">
+                            <div class="needShow icons icon-user-details" @click="openModal('版本详情','','111')"></div>
+                            <div class="needShow icons icon-status-editor"v-if="scope.row.status === 3 || scope.row.status === 2" @click="openModal2"></div>
+                            <div class="needShow icons icon-user-delete" v-if="scope.row.status === 3" @click="strategyDelete(scope.row,$event)"></div>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <!--工具条-->
+            <div class="manageCommB">
+                <el-col :span="24" class="toolbar">
+                    <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="currentPage" :page-sizes="[10,30,50]" :page-size="rows" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                    </el-pagination>
+                </el-col>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

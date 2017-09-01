@@ -1,0 +1,29 @@
+<div class="variateListWrapper">
+    <input type="text" style="width: 100%;" placeholder="请输入关键字搜索" v-on:keyup="queryVarList"/>
+
+    <div>
+        <ul class="variateList">
+            <li v-for="group in groups">
+                <span v-on:click.self="toggleTable" class="tip">
+                    <span class="icons icon-arrow-bold-down"></span>{{group.varTypeName}}</span>
+                <table v-if="!!group.list && group.list.length > 0">
+                    <thead>
+                    <tr>
+                        <td width="40%">名称</td>
+                        <td width="40%">描述</td>
+                        <td width="20%">类型</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in group.list" v-on:click="selectVar(item,$event)"
+                        v-bind:class="(item.varName == options.name && item.varType == options.paramType) ? 'selected' : ''">
+                        <td>{{item.varName}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.dataTypeName}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>

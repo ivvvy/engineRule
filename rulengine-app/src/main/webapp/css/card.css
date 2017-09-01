@@ -1,0 +1,69 @@
+.cardsOuter > table {
+    width: 600px;
+    margin-left: 120px;
+    border-spacing: 0;
+    background-color: #CCCCCC;
+}
+
+.cardsOuter > table > thead {
+    background-color: #E0F0F2;
+}
+
+.cardsOuter > table > thead td:first-child {
+    border-left: solid 1px #CCCCCC;
+    border-top: solid 1px #CCCCCC;
+}
+
+.cardsOuter > table > thead td:last-child {
+    border: solid 1px #CCCCCC;
+    border-bottom: none;
+}
+
+.cardsOuter > table td {
+    text-align: center;
+    font-size: 11px;
+    height: 35px;
+    width: 50%;
+}
+
+.cardsOuter .varTable {
+    width: 100%;
+    background-color: #CCCCCC;
+    border-spacing: 1px;
+}
+
+.cardsOuter .varTable thead {
+    background-color: #F8F8F8;
+}
+
+.cardsOuter .varTable thead td {
+    padding: 0 20px;
+    text-align: left;
+}
+
+.cardsOuter .varTable thead td:last-child {
+    text-align: right;
+}
+
+.cardsOuter .varTable tbody td {
+    background-color: white;
+}
+
+.cardsOuter .varOperate {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.cardsOuter .varTable tbody input,
+.cardsOuter .varTable tbody select {
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-align: center;
+    height: 100%;
+}
+
+.cardsOuter .varTable tbody select {
+    float: left;
+}

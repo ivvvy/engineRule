@@ -1,0 +1,12 @@
+<div class="thenWrapper">
+
+    <span v-if="!!type" class="typeTip" v-html="type"></span>
+
+    <div class="thenLine" v-for="(item,index) in result">
+        <line-part v-bind:line="item" v-bind:type="'result'"></line-part>
+        <span class="thenOperate">
+            <span class="icons icon-add-round" v-if="index == 0" v-on:click="addThenItem"></span>
+            <span v-if="index > 0" v-on:click="deleteThenItem(index)">删除</span>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,493 @@
+.layout-bottom {
+    width: 98%;
+    margin: 0 1%;
+    background-color: white;
+    border: 1px solid #d8d8d8;
+    position: relative;
+    overflow: hidden;
+}
+
+.icons {
+    display: inline-block;
+    background: url(../images/treeIcons.svg) no-repeat;
+}
+
+.module-title {
+    margin: 15px 2%;
+    font-size: 11pt;
+}
+
+.font-10 {
+    font-size: 10pt;
+}
+
+.node-lable-set {
+    width: 98%;
+    height: auto;
+    margin: 10px 1% 5px;
+    position: relative;
+}
+
+.node-lable-set .input-editor {
+    width: 100%;
+    min-height: 60px;
+    height: auto;
+    display: inline-block;
+    padding-right: 46px;
+}
+
+.node-lable-set .input-operate {
+    width: 40px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+    position: absolute;
+    top: 0px;
+    right: 8px;
+}
+
+.node-lable-set .input-operate > div {
+    height: 20px;
+    width: 30px;
+    line-height: 20px;
+    font-size: 9pt;
+    margin: 7px;
+    text-align: center;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.node-lable-set .input-operate .input-finished {
+    background-color: #5bd860;
+}
+
+.node-lable-set .input-operate .input-reset {
+    background-color: red;
+}
+
+.in-out-logic {
+    margin: 0 1% 10px;
+}
+
+.in-out-logic .logic-symbol {
+    height: 35px;
+    width: 10%;
+    margin: 5px 0;
+    font-size: 14pt;
+    display: inline-block;
+    left: 0px;
+    position: relative;
+}
+
+.in-out-logic .logic-content {
+    height: 35px;
+    width: 90%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin-left: -5px;
+}
+
+.in-out-logic .logic-content .content-type, .in-out-logic .logic-content .content-value {
+    height: 35px;
+    width: 20%;
+    margin-top: 5px;
+    font-size: 10pt;
+    display: inline-block;
+    vertical-align: top;
+    left: 0px;
+    position: relative;
+}
+
+.in-out-logic .logic-content .content-value {
+    width: 80%;
+    margin-left: -5px;
+}
+
+.in-out-logic .logic-function-params {
+    display: none;
+}
+
+.in-out-logic .logic-function-params.display {
+    display: block;
+}
+
+.logic-function-params #input-function-params {
+    margin: 0 0 0 4px;
+    padding: 0px;
+    width: 99.8%;
+}
+
+.logic-function-params #input-function-params li {
+    width: 20%;
+    display: inline-block;
+    margin-left: -4px;
+}
+
+/*.logic-function-params #input-function-params li:nth-of-type(3n+1) {
+    text-align: left;
+}
+
+.logic-function-params #input-function-params li:nth-of-type(3n+2) {
+    text-align: center;
+    margin-left: -4px;
+}
+
+.logic-function-params #input-function-params li:nth-of-type(3n+3) {
+    text-align: right;
+}*/
+
+.logic-function-params #input-function-params li .function-params {
+    width: 100%;
+    height: 30px;
+    margin: 3px 0px;
+}
+
+.in-out-logic .set-finished {
+    width: 70px;
+    height: 26px;
+    font-size: 9pt;
+    line-height: 26px;
+    text-align: center;
+    color: white;
+    background-color: #2196F3;
+    border-radius: 6px;
+    border: 1px solid #2196F3;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.draw-container {
+    width: 96%;
+    margin: 0 auto;
+    border: 1px solid #d8d8d8;
+}
+
+.draw-canvas {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.draw-canvas > div {
+    position: relative;
+    text-align: center;
+}
+
+.draw-legends {
+    width: 100%;
+    height: 60px;
+    font-size: 10pt;
+    border-bottom: 1px solid #d8d8d8;
+    position: relative;
+}
+
+.draw-legends .tool-text {
+    line-height: 60px;
+    padding-left: 15px;
+    vertical-align: top;
+}
+
+.draw-legends > div {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 8px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.legend-rhombus {
+    width: 56px;
+    height: 50px;
+}
+
+.legend-rhombus > img {
+    height: 34px;
+    padding: 5px 0;
+}
+
+.legend-rhombus .text {
+    text-align: center;
+    top: -5px;
+    font-size: 9pt;
+    position: relative;
+}
+
+.legend-rectangle {
+    width: 48px;
+    height: 26px;
+    font-size: 9pt;
+    border: 1px solid #adadad;
+    background-color: #f8f8f8;
+    margin: 9px 0;
+}
+
+.legend-rectangle .text {
+    top: 30px;
+    position: relative;
+}
+
+.draw-legends .tree-reset {
+    line-height: 60px;
+    right: 0px;
+    position: absolute;
+}
+
+.draw-legends .tree-reset .text {
+    display: inline-block;
+    font-size: 9pt;
+    vertical-align: top;
+}
+
+.icon-reset {
+    width: 28px;
+    height: 22px;
+    margin-top: 19px;
+    background-position: 3px 2px;
+}
+
+.draw-cancas {
+    height: auto;
+    width: 100%;
+    display: block;
+}
+
+.tree-node {
+    cursor: move;
+}
+
+.tree-node .text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 9pt;
+}
+
+.node-roundness {
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+    border: 1px solid #adadad;
+    background-color: #f8f8f8;
+    display: inline-block;
+    top: 20px;
+    vertical-align: middle;
+    position: absolute;
+    text-align: center;
+    line-height: 54px;
+}
+
+#flowChart #node-start {
+    left: 2%;
+}
+
+#flowChart #node-end {
+    right: 2%;
+}
+
+.node-rhombus {
+    display: inline-block;
+    width: 101px;
+    height: 71px;
+}
+
+.node-rhombus .text {
+    text-align: center;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: 25px auto;
+    width: 70px;
+    left: 15px;
+    top: -4px;
+    position: absolute;
+}
+
+.node-rectangle {
+    width: 90px;
+    height: 46px;
+    line-height: 46px;
+    border: 1px solid #adadad;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.node-rhombus > img.selected {
+    display: none;
+    top: 0px;
+    position: absolute;
+}
+
+.node-rhombus.selected > img {
+    display: none;
+}
+
+.node-rhombus.selected > img.selected {
+    display: block;
+}
+
+.node-rectangle.selected {
+    background-color: white;
+    border: 2px solid #12B9C8;
+}
+
+.node-rectangle .text {
+    display: inline-block;
+    width: 80px;
+}
+
+.node-rhombus-select {
+    height: 30px;
+    width: 60px;
+    line-height: 30px;
+    text-align: center;
+    position: relative;
+    top: -5px;
+    left: 68px;
+    display: none;
+}
+
+.node-rectangle-select {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    top: -34px;
+    left: 88px;
+    display: none;
+}
+
+#flowChart .node-rectangle-select {
+    left: 17px;
+    top: -70px;
+}
+
+.tree-node.selected .node-rhombus-select, .tree-node.selected .node-rectangle-select {
+    display: block;
+}
+
+.node-editor, .node-delete {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.icon-editor {
+    height: 22px;
+    width: 22px;
+    background-position: -62px 0px;
+}
+
+.icon-delete {
+    height: 22px;
+    width: 22px;
+    background-position: -94px 0px;
+}
+
+.view-source {
+    height: 40px;
+    width: 80px;
+    line-height: 40px;
+    font-size: 10pt;
+    color: white;
+    background-color: #2196F3;
+    border-radius: 4px;
+    border: solid 1px #2196F3;
+    margin: 4px 0 0;
+}
+
+.connect-operate {
+    position: absolute;
+    width: 60px;
+    left: -30px;
+    top: -15px;
+    background-color: white;
+    text-align: center;
+}
+
+.connect-operate > div {
+    display: inline-block;
+    font-size: 9pt;
+}
+
+.connect-operate .line-editor {
+}
+
+.connect-operate .line-remove {
+}
+
+/*delete dialog*/
+.icon-triangle-left {
+    width: 11px;
+    height: 20px;
+    background-position: -35px 1px;
+    top: 35px;
+    left: 0px;
+    position: absolute;
+    z-index: 10;
+}
+
+#operateDialog {
+    display: inline-block;
+    left: 30px;
+    top: -6px;
+    z-index: 10;
+    position: relative;
+}
+
+/*.node-rectangle #operateDialog{
+left: -4px;
+top: -35px;
+   }
+
+   #flowChart .node-rectangle #operateDialog{
+       left: 69px;
+top: 1px;
+   }
+
+   #flowChart .jtk-overlay #operateDialog{
+       left: 35px;
+top: -30px;
+   }*/
+
+#operateDialog .delete-dialog {
+    width: 200px;
+    height: 88px;
+    margin-left: 9px;
+    font-size: 9pt;
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+#operateDialog .delete-dialog .title {
+    line-height: 46px;
+    text-align: center;
+    color: black;
+}
+
+#operateDialog .delete-dialog .buttons {
+    text-align: center;
+}
+
+#operateDialog .delete-dialog .buttons > div {
+    width: 58px;
+    height: 30px;
+    line-height: 29px;
+    margin: 0 4px;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#operateDialog .delete-dialog .buttons .ok {
+    color: white;
+    background-color: #12B9C8;
+}
+
+#operateDialog .delete-dialog .buttons .cancle {
+    height: 29px;
+    border: 1px solid #cccccc;
+    background-color: white;
+    color: black;
+}

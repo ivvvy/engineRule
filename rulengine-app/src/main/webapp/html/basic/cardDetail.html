@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评分卡</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/card"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/card.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->评分卡详情">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">评分卡信息</div>
+                <div class="body">
+                    <div class="detail_line">
+                        <span class="desc">名称</span>
+                        <span>{{formData.strategyName}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">描述</span>
+                        <span>{{formData.description}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">分类</span>
+                        <span>{{formData.sort}}</span>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0;">评分卡定义</div>
+                    <div class="detail_line">
+                        <span class="desc">结果变量</span>
+                        <span>{{output.name}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">截距项</span>
+                        <span>{{initValue}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">特征项</span>
+
+                        <div class="cardsOuter disabled">
+                            <table v-if="vars.length > 0">
+                                <thead>
+                                <tr>
+                                    <td>评分条件</td>
+                                    <td>分值</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="varItem in vars">
+                                    <td colspan="2">
+                                        <card-var v-bind:variate="varItem" v-bind:items="vars"></card-var>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="readCode" v-bind:class="openSource?'opened':''" v-on:click.self="readSourceCode">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <hr>
+                    <div class="detail_line">
+                        <span class="desc">创建人</span>
+                        <span>{{formData.creater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">创建时间</span>
+                        <span>{{formData.createTime}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新人</span>
+                        <span>{{formData.updater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新时间</span>
+                        <span>{{formData.updateTime}}</span>
+                    </div>
+                    <div style="margin: 40px 108px 20px;">
+                        <button class="btn_success" v-if="withEdit()" v-on:click="editCard">编辑</button>
+                        <button v-on:click="cancelEdit">返回</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

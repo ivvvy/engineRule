@@ -1,0 +1,55 @@
+#strategyCreate {
+    position: absolute;
+    z-index: 11;
+    width: 100px;
+    background-color: white;
+    padding: 10px 0;
+    margin: 0 4px;
+    border: solid 1px #CCCCCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 6px;
+}
+
+#strategyCreate:before,
+#strategyCreate:after {
+    position: absolute;
+    display: inline-block;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    content: '';
+}
+
+#strategyCreate:before {
+    top: -7px;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid #ccc;
+    left: 45px;
+}
+
+#strategyCreate:after {
+    top: -6px;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fff;
+    border-left: 6px solid transparent;
+    left: 46px;
+}
+
+#strategyCreate > li {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#strategyCreate > li:hover {
+    background-color: #29C6D4;
+    color: white;
+}
+
+#strategyCreate > li > a {
+    display: block;
+    margin: 0 -10px;
+    padding: 0 10px;
+}

@@ -1,0 +1,17 @@
+<span>
+    <select v-model="right.type" v-on:change="changeType">
+        <option value="const">常量</option>
+        <option value="var">变量</option>
+        <option value="fn" v-if="!!withfn">函数</option>
+    </select>
+    <input type="text" v-if="right.type == 'const'" placeholder="请输入值" v-model="right.value"/>
+    <input type="text" v-if="right.type == 'var'" readonly="readonly" placeholder="请选择变量"
+           v-on:click="openVarList" v-model="right.name"/>
+    <input type="text" v-if="right.type == 'fn'" readonly="readonly" placeholder="请选择函数"
+           v-on:click="openFNList" v-model="right.name"/>
+    <div v-if="right.type == 'fn' && !!right.parameters && right.parameters.length > 0" class="fnLine">
+        <span v-for="fn in right.parameters">
+            <right-part v-bind:right="fn" v-bind:withfn="false"></right-part>
+        </span>
+    </div>
+</span>

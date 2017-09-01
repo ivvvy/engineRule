@@ -1,0 +1,792 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    font-family: '微软雅黑', sans-serif;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+html, body {
+    min-height: 100%;
+    height: 100%;
+    min-width: 1340px;
+}
+
+layout-main {
+    display: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#body {
+    margin: 0 auto;
+    height: 100%;
+    background-color: #F6F5F5;
+}
+
+.redX {
+    color: red;
+    margin: 0 5px;
+    font-size: 10px;
+}
+
+.main {
+    position: relative;
+    min-height: 100%;
+}
+
+header {
+    background-color: rgb(52, 65, 81);
+    height: 55px;
+    line-height: 55px;
+    color: white;
+    padding: 0 20px;
+    border-bottom: solid 1px gray;
+}
+
+.menuBg {
+    background-color: rgb(52, 65, 81);
+    position: absolute;
+    width: 200px;
+    top: 56px;
+    bottom: 0;
+}
+
+menu {
+    background-color: rgb(52, 65, 81);
+    width: 200px;
+    float: left;
+    padding: 20px 0;
+    color: white;
+    font-size: 15px;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 13px;
+}
+
+menu > * {
+    width: 200px;
+}
+
+menu .userInfo {
+    height: 80px;
+}
+
+menu .userInfo .info {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    padding: 20px 0;
+    max-width: 110px;
+    width: 110px;
+}
+
+menu .userInfo .info > div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 20px;
+    line-height: 20px;
+}
+
+.menu li {
+    min-height: 40px;
+    line-height: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.menu li.open {
+    height: auto;
+}
+
+.menu li.open > a .icons[class*="icon-arrow"] {
+    background-position-x: -63px;
+}
+
+.menu li > a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+}
+
+.menu li > a [class*="icon-arrow"] {
+    float: right;
+    right: 0;
+    width: 20px;
+}
+
+.menu li > a:hover {
+    background-color: #2B3443;
+}
+
+.menu li > a.active {
+    background-color: #27C6D3;
+}
+
+.menu li > a.active .icons[class*="icon-menu"] {
+    background-position-y: -73px;
+}
+
+.menu li ul > li {
+    padding-left: 65px;
+    font-size: 12px;
+}
+
+.menu li ul > li > a {
+    margin-left: -65px;
+    padding-left: 65px;
+}
+
+.menu li ul > li > a.active {
+    background-color: #4A5769;
+}
+
+.menu li ul > li > ul {
+    margin-left: -85px;
+}
+
+.menu li ul > li > ul > li {
+    padding-left: 20px;
+}
+
+.menu li ul > li > ul > li > a {
+    margin-left: 0;
+    padding-left: 85px;
+}
+
+.menu .name {
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.menu .icons {
+    height: 30px;
+    width: 30px;
+    margin: 5px 15px;
+}
+
+.rightContent {
+    margin-left: 200px;
+    background-color: #F6F5F5;
+    padding-bottom: 20px;
+}
+
+.rightContent .location {
+    height: 55px;
+    padding: 20px;
+    background-color: white;
+    font-size: 12px;
+    line-height: 15px;
+    -webkit-box-shadow: 0px 5px 5px #E6E5E5;
+    -moz-box-shadow: 0px 5px 5px #E6E5E5;
+    box-shadow: 0px 5px 5px #E6E5E5;
+}
+
+.rightContent .location > span:last-of-type {
+    color: #00C3D2;
+}
+
+.rightContent .location .locationOperate {
+    float: right;
+    position: relative;
+    margin-top: -10px;
+}
+
+.rightContent .content {
+    margin: 20px;
+    margin-bottom: 0;
+}
+
+.modal_bg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 11;
+}
+
+.modal {
+    display: inline-block;
+    width: 500px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    margin-left: -250px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 2px 5px 1px #989696;
+    -moz-box-shadow: 1px 2px 5px 1px #989696;
+    box-shadow: 1px 2px 5px 1px #989696;
+}
+
+.modal .title {
+    background-color: #F6F6F6;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: solid 2px #DDDDDD;
+    font-size: 14px;
+}
+
+.modal .body {
+    padding: 30px 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+.modal .footer {
+    text-align: center;
+    background-color: #F9F9F9;
+    padding: 15px 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: solid 1px #DDDDDD;
+}
+
+button {
+    border: solid 1px #CCCCCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    min-width: 100px;
+    padding: 0 15px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0 4px;
+}
+
+button .icons {
+    padding: 0 5px;
+    vertical-align: top;
+    margin: 9px 5px;
+}
+
+button:focus {
+    outline: none;
+}
+
+button.btn_sm {
+    height: 30px;
+    line-height: 30px;
+    min-width: 60px;
+}
+
+button.btn_success {
+    background-color: #29C6D4;
+    border: solid 1px #29C6D4;
+    color: white;
+}
+
+button.btn_success_empty {
+    background-color: white;
+    border: solid 1px #29C6D4;
+    color: #29C6D4;
+}
+
+.tipTimeout {
+    position: fixed;
+    padding: 6px 25px;
+    border: solid 1px gray;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    top: 63px;
+    left: 50%;
+    background-color: white;
+    line-height: 22px;
+}
+
+.tipTimeout.success {
+    background-color: #DAFBF1;
+    border: solid 1px #84D5BE;
+}
+
+.tipTimeout.fail {
+    background-color: #FFF2EF;
+    border: solid 1px #FEB9A6;
+}
+
+.queryArea {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+}
+
+.queryArea > * {
+    margin: 0 5px;
+}
+
+.queryArea .areaTip {
+    margin: 0 3px;
+}
+
+select, input[type="text"] {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    height: 30px;
+    color: #555;
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    outline-color: #29C6D4;
+}
+
+select {
+    -webkit-appearance: none;
+    background: url(../images/select.svg) no-repeat scroll right center transparent;
+    padding-right: 20px;
+    background-color: white;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+input.dateranger {
+    width: 170px;
+}
+
+.mainContent {
+    border: solid 1px #DDDDDD;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    background-color: white;
+}
+
+.mainContent .title {
+    background-color: #FAFAFA;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: solid 1px #DDDDDD;
+}
+
+.mainContent .body {
+    padding: 20px;
+}
+
+.mainContent .body hr {
+    margin: 20px 0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: solid 2px #DDDDDD;
+}
+
+.mainContent .body .line {
+    margin: 20px 0;
+}
+
+.mainContent .body .detail_line {
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.mainContent .body .line .desc,
+.mainContent .body .detail_line .desc {
+    margin: 0 20px;
+    margin-top: 6px;
+    display: inline-block;
+    font-size: 12px;
+    min-width: 45px;
+    width: 70px;
+    text-align: right;
+}
+
+.mainContent .body .detail_line .desc {
+    color: #5C5C5C;
+}
+
+.mainContent .body .line .input {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.mainContent .body .line .tip {
+    position: relative;
+    left: 0;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #989898;
+}
+
+/**变量选择弹出框**/
+/**函数选择弹出框**/
+.variateListWrapper .variateList,
+.fnListWrapper .fnList {
+    font-size: 12px;
+    padding: 10px;
+}
+
+.variateListWrapper .variateList .tip,
+.fnListWrapper .fnList .tip {
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.variateListWrapper .variateList .tip.shrink .icon-arrow-bold-down,
+.fnListWrapper .fnList .tip.shrink .icon-arrow-bold-down {
+    background-position: -289px -12px;
+}
+
+.variateListWrapper .variateList .tip.shrink + table,
+.fnListWrapper .fnList .tip.shrink + table {
+    display: none;
+}
+
+.variateListWrapper .variateList table,
+.fnListWrapper .fnList table {
+    width: 100%;
+    line-height: 25px;
+    margin: 5px 0 10px 0;
+    border-spacing: 0;
+}
+
+.variateListWrapper .variateList table thead,
+.fnListWrapper .fnList table thead {
+    background-color: #E5E5E5;
+}
+
+.variateListWrapper .variateList table td,
+.fnListWrapper .fnList table td {
+    padding: 0 10px;
+}
+
+.variateListWrapper .variateList table tbody tr,
+.fnListWrapper .fnList table tbody tr {
+    cursor: pointer;
+}
+
+.variateListWrapper .variateList table tbody tr.selected,
+.fnListWrapper .fnList table tbody tr.selected {
+    background-color: #12B9C8;
+    color: white;
+}
+
+.fnLine {
+    margin: 10px 30px;
+}
+
+.fnLine > span {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+
+.fnLine > span:first-of-type:before {
+    content: "(";
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.fnLine > span:not(:last-of-type):after {
+    content: ",";
+    display: inline-block;
+}
+
+.fnLine > span:last-of-type:after {
+    content: ")";
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/*.constraintWrapper {*/
+/*display: inline-block;*/
+/*}*/
+
+.constraintOuter.disabled input,
+.constraintOuter.disabled select {
+    background-color: #F9F9F9;
+}
+
+.constraintWrapper .level_1:first-of-type {
+    margin-left: 60px;
+}
+
+.constraintWrapper .lineWrapper,
+.thenWrapper .lineWrapper {
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.constraintWrapper select {
+    vertical-align: top;
+}
+
+.constraintWrapper select.constraintType {
+    margin: 5px 0;
+}
+
+.constraintLine > .constraintWrapper {
+    margin-left: 60px;
+}
+
+.constraintWrapper .level_1:first-of-type > .constraintWrapper {
+    margin-left: 0;
+}
+
+.constraintWrapper .typeTip,
+.thenWrapper .typeTip {
+    display: inline-block;
+    width: 60px;
+    position: absolute;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.thenWrapper .typeTip {
+    left: -60px;
+}
+
+.constraintWrapper .constraintOperate > *,
+.thenWrapper .thenOperate > * {
+    font-size: 11px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #666666;
+}
+
+.constraintWrapper .constraintLine {
+    position: relative;
+}
+
+.constraintWrapper .icon-add-round {
+    display: none;
+}
+
+.constraintWrapper .constraintOperate {
+    position: absolute;
+    top: 5px;
+    left: 520px;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.thenWrapper .icon-add-round {
+    position: absolute;
+    top: 8px;
+    left: 461px;
+}
+
+.constraintWrapper .level_3 .constraint_insert {
+    display: none;
+}
+
+.constraintWrapper .fnLine,
+.thenWrapper .fnLine {
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+.constraintWrapper .level_1 .level_2:first-of-type > .constraintOperate .icon-add-round:first-of-type,
+.constraintWrapper .level_2 .level_3:first-of-type > .constraintOperate .icon-add-round:first-of-type,
+.constraintWrapper .level_1:first-of-type > .constraintOperate .icon-add-round:first-of-type {
+    display: inline-block;
+}
+
+.constraintWrapper .level_1:first-of-type > .constraintOperate .constraint_del {
+    display: none;
+}
+
+.thenWrapper {
+    margin-left: 60px;
+    position: relative;
+    margin-top: 15px;
+}
+
+.thenWrapper .thenLine {
+    position: relative;
+}
+
+.thenWrapper .thenLine .lineWrapper {
+    display: inline-block;
+}
+
+.readCode {
+    margin: 20px 0;
+    color: #29C6D4;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.readCode .icon-chevron-right {
+    vertical-align: bottom;
+}
+
+.readCode.opened .icon-chevron-right {
+    background-position: -216px -34px;
+}
+
+.ace-area {
+    height: 350px;
+    border: solid 1px #CCCCCC;
+}
+
+.ace-area * {
+    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+}
+
+.syncopateWrapper table {
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    border-spacing: 0;
+}
+
+.syncopateWrapper table thead tr {
+    height: 25px;
+    background-color: #E0F0F2;
+}
+
+.syncopateWrapper table tbody tr {
+    height: 40px;
+    cursor: pointer;
+}
+
+.syncopateWrapper table tbody tr:not(.syncopateOperate):hover {
+    background-color: #FBFBFB;
+}
+
+.syncopateWrapper table tbody tr:hover input {
+    background-color: #FBFBFB;
+}
+
+.syncopateWrapper table tr td {
+    border-bottom: solid 1px #D9D9D9;
+}
+
+.syncopateWrapper table tr td input {
+    text-align: center;
+    width: 100px;
+}
+
+.syncopateWrapper .syncopateItemOperate {
+    text-decoration: underline;
+    color: #6D6766;
+    display: none;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.syncopateWrapper table tbody tr:hover .syncopateItemOperate {
+    display: inline;
+}
+
+.syncopateWrapper .syncopateOperate td {
+    width: 100%;
+}
+
+.syncopateWrapper .syncopateOperate button {
+    width: 90%;
+    border-style: dashed;
+    margin: 10px 0;
+    border-width: 2px;
+}
+
+.pagination_wrapper {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.referenceWrapper .switcher {
+    text-align: center;
+    margin-bottom: 20px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    display: inline-block;
+    border: solid 1px #E6E6E6;
+    border-radius: 17px;
+}
+
+.referenceWrapper .switcher > span {
+    display: inline-block;
+    width: 100px;
+    border-right: solid 1px #E6E6E6;
+    cursor: pointer;
+}
+
+.referenceWrapper .switcher > span.selected {
+    background-color: #29C6D4;
+    color: white;
+    margin-left: -5px;
+}
+
+.referenceWrapper .switcher > span:first-child {
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+}
+
+.referenceWrapper .switcher > span:last-child {
+    border-right: none;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+}
+
+.referenceWrapper .el-table td,
+.referenceWrapper .el-table th {
+    height: 40px;
+}
+
+.strategyListWrapper .el-pagination {
+    float: right;
+}
+
+.small_table .el-table td,
+.small_table .el-table th {
+    height: 40px;
+}
+
+.el-table .cell .icon-lock {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+}
+
+.el-table .cell .cell_operate .icons {
+    width: 24px;
+    height: 34px;
+    float: left;
+    cursor: pointer;
+}

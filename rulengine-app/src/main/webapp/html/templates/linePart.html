@@ -1,0 +1,8 @@
+<div class="lineWrapper">
+    <input type="text" readonly="readonly" placeholder="请选择变量" v-model="line.left.name" v-on:click="openVarList"/>
+    <select v-model="line.operator" v-on:change="changeOperator">
+        <option value="">选择关系</option>
+        <option v-for="op in operates" v-bind:value="op.value">{{op.name}}</option>
+    </select>
+    <right-part v-bind:right="line.right" v-bind:withfn="true" ref="rightPart" v-if="line.operator.indexOf('null') < 0"></right-part>
+</div>

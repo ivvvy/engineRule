@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		                http://www.springframework.org/schema/beans/spring-beans.xsd
+		                http://www.springframework.org/schema/context
+		                http://www.springframework.org/schema/context/spring-context.xsd
+		                http://www.springframework.org/schema/mvc
+	                    http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+     <!--自定义转换器（根据自身需要）-->
+	<mvc:annotation-driven>
+		<!--<mvc:message-converters>-->
+			<!--<bean class="org.suanhua.rulengine.web."/>-->
+		<!--</mvc:message-converters>-->
+	</mvc:annotation-driven>
+
+	<!-- scan the package and the sub package -->
+	<context:component-scan base-package="org.suanhua.rulengine" />
+
+	<!-- don't handle the static resource -->
+	<mvc:default-servlet-handler />
+
+	<!-- bean name view resolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="0" />
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+				p:defaultEncoding="UTF-8"
+				p:maxUploadSize="5400000"
+			/>
+
+	<!-- 基于内容协商的视图解析器,其中可以配置多个视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="viewResolvers">
+			<list>
+				<!-- JSP/HTML页面的视图解析器 -->
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.JstlView" />
+					<property name="prefix" value="/WEB-INF/jsp/" />
+					<property name="suffix" value=".jsp" />
+					<property name="contentType" value="text/html;charset=UTF-8" />
+					<property name="order" value="2" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- json view -->
+	
+	<bean id="defaultJsonView"
+		  class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+	<!-- 静态资源映射 
+	<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+	<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+	<mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
+	<mvc:resources mapping="/ui/**" location="/WEB-INF/ui/" />
+	-->
+	<!-- 根路径默认视图,非必须,可以去掉 (指向默认跳转到的页面)
+	<mvc:view-controller path="/" view-name="channelList" />
+    -->
+    
+
+</beans>

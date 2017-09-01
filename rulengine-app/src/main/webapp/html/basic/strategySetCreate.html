@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>策略集</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/strategySet"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/elementUi.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略集->新建">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">策略集信息</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.strategyName"/>
+
+                            <div class="tip">不超过100位，可由英文和数字组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.description"/>
+
+                            <div class="tip">不超过100位，可由英文、数字、中文和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <button class="btn_success_empty" v-on:click="selectStrategy">选择策略</button>
+                        <div style="margin-top: 20px;" class="small_table">
+                            <el-table v-bind:data="formData.strategyList" highlight-current-row
+                                      @cell-mouse-enter="handleMouseEnter"
+                                      @cell-mouse-leave="handleMouseOut"
+                                      style="width: 100%;font-size: 12px;">
+                                <el-table-column prop="strategyType" label="策略工具"
+                                                 v-bind:formatter="strategyTypeFormatter"
+                                                 sortable min-width="40" show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="controlNo" label="策略编号" sortable
+                                                 min-width="70" show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="sort" label="策略分类" sortable min-width="50"
+                                                 show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="strategyName" label="策略名称" sortable
+                                                 min-width="70" show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="description" label="策略描述" sortable
+                                                 min-width="70" show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="" label="优先级" sortable min-width="120">
+                                    <template scope="scope">
+                                        <input type="text" placeholder="1~999的数字，数字越大优先级越高" style="width: 220px;"/>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column min-width="50">
+                                    <template scope="scope">
+                                        <div v-show="scope.row.showOperate" class="cell_operate">
+                                            <span class="icons icon-user-details" title="详情"
+                                                  v-on:click="showDetail(scope.row)"></span>
+                                            <span class="icons icon-user-delete" title="删除"
+                                                  v-on:click="removeStrategy(scope.row)"></span>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+
+                            </el-table>
+                        </div>
+                    </div>
+                    <div style="margin: 20px 60px;">
+                        <button class="btn_success">保存</button>
+                        <button v-on:click="cancelEdit">取消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

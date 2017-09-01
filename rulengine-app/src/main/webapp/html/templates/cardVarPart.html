@@ -1,0 +1,48 @@
+<table class="varTable">
+    <thead>
+    <tr>
+        <td v-on:click="showDetail = !showDetail">
+            <span class="icons" v-bind:class="!showDetail?'icon-arrow-bold-right':'icon-arrow-bold-down'"></span>
+            <span>特征变量: {{variate.name}}</span>
+        </td>
+        <td>
+            <span class="varOperate" v-on:click="syncopateVar">
+                <span class="icons icon-change"></span>
+                <span>切分变量</span>
+            </span>
+            <span class="varOperate" v-on:click="removeVar(variate.name)">
+                <span class="icons icon-delete-red"></span>
+                <span>删除变量</span>
+            </span>
+        </td>
+    </tr>
+    </thead>
+    <tbody v-show="showDetail">
+    <tr v-for="score in variate.scores">
+        <td v-if="score.type != 'else'">
+            <span v-if="score.leftLine">
+                <span v-if="score.leftLine.right">
+                    {{score.leftLine.right.value}}
+                </span>
+                {{score.leftLine.comparator | leftComparatorReverse}}
+            </span>
+            {{variate.name}}
+            <span v-if="score.rightLine">
+                {{score.rightLine.comparator}}
+                <span v-if="score.rightLine.right">
+                    {{score.rightLine.right.value}}
+                </span>
+            </span>
+        </td>
+        <td v-if="score.type == 'else'">
+            <span>ELSE</span>
+        </td>
+        <td>
+            <select v-model="score.result.operator">
+                <option v-for="ope in rightOperates" v-bind:value="ope.value">{{ope.name}}</option>
+            </select>
+            <input type="text" placeholder="请输入分值" v-model="score.result.value"/>
+        </td>
+    </tr>
+    </tbody>
+</table>

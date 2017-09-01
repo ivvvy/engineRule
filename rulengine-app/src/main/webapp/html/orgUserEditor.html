@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户编辑</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js" data-entry="js/modules/sysManage/orgUserEditor"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="../css/sysManage.css" />
+</head>
+<body>
+    <div id="body">
+        <layout-main path="系统管理->用户管理->用户编辑">
+            <div slot="content">
+                <div class="userEditor">
+                    <div class="editorTop">用户信息</div>
+                    <div class="editorContent">
+                        <dl v-for="item in userOrg">
+                            <dt>{{item.name}}</dt>
+                            <dd>{{item.val}}</dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>&nbsp;用户状态</dt>
+                            <dd class="setStatus">
+                                <div v-for="item in userStatusEditor">
+                                    <input type="radio" :id="item.id" :value="item.val" @click="clickRadio">
+                                    <label :for="item.id" class="icons icon-radio-false"></label>
+                                    {{item.text}}
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl v-for="item in emailPhone">
+                            <dt>{{item.name}}</dt>
+                            <dd>{{item.val}}</dd>
+                        </dl>
+                        <dl class="chooseRole">
+                            <dt><span>*</span>&nbsp;用户角色</dt>
+                            <dd>
+                                <div class="box">
+                                    <div class="top">
+                                        <div v-for="(item,index) in selectedRole">{{item.name}}<span @click="deleteChoose(index,item['code'])">X</span></div>
+                                    </div>
+                                    <div class="roleList">
+                                        <div v-for="(item,index) in roleList" :code="item.code" @click="chooseRole(item['code'],item['name'],$event)">{{item.name}}</div>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <div class="editorBottom">
+                            <button class="save">保存</button>
+                            <button calss="cancel"><a href="orgUserManager.html">取消</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </layout-main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评分卡</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/card"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/card.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->新建评分卡">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">新建评分卡</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.strategyName"
+                                   v-bind:readonly="hasServerData"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.description"/>
+
+                            <div class="tip">不超过100位，可由英文、数字、中文和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>分类</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="formData.sort"/>
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0;">评分卡定义</div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>结果变量</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" readonly="readonly" placeholder="请选择变量"
+                                   v-on:click="openOutputVarList" v-model="output.name"/>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>截距项</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px;" v-model="initValue"/>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>特征项</span>
+
+                        <div class="input">
+                            <button class="btn_success_empty" v-on:click.self="openVarList">
+                                <span class="icons icon-plus"></span>添加变量
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="cardsOuter">
+                        <table v-if="vars.length > 0">
+                            <thead>
+                            <tr>
+                                <td>评分条件</td>
+                                <td>分值</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="varItem in vars">
+                                <td colspan="2">
+                                    <card-var v-bind:variate="varItem" v-bind:items="vars"></card-var>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="readCode" v-bind:class="openSource?'opened':''" v-on:click.self="readSourceCode">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <div style="margin: 20px 60px;">
+                        <button class="btn_success_empty">编译</button>
+                        <button class="btn_success" v-on:click="saveCard">保存</button>
+                        <button v-on:click="cancelEdit">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

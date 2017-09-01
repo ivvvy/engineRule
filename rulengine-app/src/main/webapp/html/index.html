@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>算话征信决策引擎</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js"
+            data-entry="js/modules/index"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/icons.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="首页">
+        <div id="indexModule" slot="content">
+            <button v-on:click="openModal">打开模态框</button>
+            <button v-on:click="openTip">弹出提示</button>
+
+            <p style="margin:20px 0;">
+                <right-part v-bind:right="right" v-bind:withfn="true"></right-part>
+                <button class="btn_success" v-on:click="getRightPart">获取right数据</button>
+            </p>
+
+            <p style="margin: 20px 0;">
+                <line-part v-bind:line="line" v-bind:type="'constraint'"></line-part>
+            </p>
+            <button class="btn_success" v-on:click="getLinePart">获取line数据</button>
+
+            <p style="margin: 20px 0;">
+
+            <div class="constraintOuter">
+                <constraint-part v-bind:type="'IF'" v-bind:constraint="constraint" v-bind:level="1"></constraint-part>
+            </div>
+
+            </p>
+            <button class="btn_success" v-on:click="getConstraintPart">获取constraint数据</button>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

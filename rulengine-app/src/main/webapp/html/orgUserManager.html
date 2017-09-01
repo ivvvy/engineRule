@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <script type="text/javascript" src="../js/libs/require.js" data-main="../js/main.js" data-entry="js/modules/sysManage/orgUserManager"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="../css/elementUi.css" />
+    <link rel="stylesheet" type="text/css" href="../css/sysManage.css" />
+</head>
+<body>
+    <div id="body">
+        <layout-main path="系统管理->用户管理">
+            <div slot="operate" class="rightTop synchroniz">
+                <button @click="openModal">同步用户</button>
+            </div>
+            <div slot="content">
+                <div class="queryArea">
+                    <select v-model="userData.status">
+                        <option value="">全部状态</option>
+                        <option value="1">启用</option>
+                        <option value="0">停用</option>
+                    </select>
+                        <span>
+                            <span class="areaTip">姓名</span>
+                            <input type="text" v-model="userData.name"/>
+                        </span>
+                        <span>
+                            <span class="areaTip">Email</span>
+                            <input type="text" v-model="userData.email"/>
+                        </span>
+                        <span>
+                            <span class="areaTip">角色</span>
+                            <input type="text" v-model="userData.role"/>
+                        </span>
+                    <button class="btn_sm btn_success" @click="userSearch">查询</button>
+                    <button class="btn_sm" @click="userReset">重置</button>
+                </div>
+                <div class="manageComm">
+                    <el-table :data="orgUserManage"  highlight-current-row @cell-mouse-enter="handleMouseEnter1" @cell-mouse-leave="handleMouseOut1" style="width: 100%;">
+                        <el-table-column prop="code" label="用户编号" sortable min-width="70"></el-table-column>
+                        <el-table-column prop="name" label="用户姓名" sortable min-width="60"></el-table-column>
+                        <el-table-column prop="orgCode" label="所属机构编号" sortable min-width="60"></el-table-column>
+                        <el-table-column prop="orgName" label="所属机构名称" sortable min-width="80"></el-table-column>
+                        <el-table-column prop="status" label="用户状态" sortable min-width="50" :formatter="userStatus"></el-table-column>
+                        <el-table-column prop="email" label="用户Email" sortable min-width="90"></el-table-column>
+                        <el-table-column prop="phone" label="用户手机号" sortable min-width="60"></el-table-column>
+                        <el-table-column prop="role" label="用户角色" sortable min-width="80">
+                            <template scope="scope">
+                                <div class="text" style="width:100%;float:left">{{ scope.row.role }}</div>
+                                <a class="needShow icons icon-user-details" href="orgUserDetails.html"></a>
+                                <a class="needShow icons icon-user-editor" href="orgUserEditor.html"></a>
+                                <div class="needShow icons icon-user-delete" @click="userDelete(scope.row)"></div>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                <!--工具条-->
+                <div class="manageCommB">
+                    <el-col :span="24" class="toolbar">
+                        <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="currentPage" :page-sizes="[10,30,50]" :page-size="rows" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                        </el-pagination>
+                    </el-col>
+                </div>
+            </div>
+        </layout-main>
+    </div>
+</body>
+</html>

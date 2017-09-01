@@ -1,0 +1,29 @@
+<div>
+    <div class="top">
+        <div class="search" @click="asyncSearch">查</div>
+        <div class="inputText"><input type="text" placeholder="请输入关键字搜索" v-model="keyWord"/></div>
+    </div>
+    <div class="list">
+        <!--<div class="listTitle">
+            <div class="conent">
+                <div class="checkoutBox">
+                    <div :data="checkAll" class="special choose icons" :class="checkAll ? 'icon-checkbox-true' : 'icon-checkbox-false'" @click="checkAllChange"></div>
+                </div>
+                <div class="code">{{options.code}}</div>
+                <div class="name">{{options.name}}</div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="conent" v-for="(item,index) in dataList">
+                <div class="checkoutBox"><div class="choose icons" :class="checkAll ? 'icon-checkbox-true' : 'icon-checkbox-false'" @click="boxChecked($event)"></div></div>
+                <div class="code" v-html="item.code"></div>
+                <div class="name" v-html="item.name"></div>
+            </div>
+        </div>-->
+        <el-table :data="dataList" style="width: 100%" @selection-change="handleSelectionChange" max-height="350">
+            <el-table-column type="selection" width="70"></el-table-column>
+            <el-table-column prop="code" :label="options.code" min-width="70"></el-table-column>
+            <el-table-column prop="name" :label="options.name" min-width="120"></el-table-column>
+        </el-table>
+    </div>
+</div>

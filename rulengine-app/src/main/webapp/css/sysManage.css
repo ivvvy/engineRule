@@ -1,0 +1,461 @@
+.rightTop{
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.rightTop button{
+    width: 115px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid #29C6D4;
+    color: #29C6D4;
+    font-size: 14px;
+    cursor: pointer;
+}
+.rightTop button span{
+    vertical-align: middle;
+    margin: 5px 0;
+}
+.manageComm{
+    background: #ffffff;
+    margin: 15px 0 0 0;
+}
+.manageCommB{
+    border: 1px solid #dddddd;
+    border-top: none;
+    height: auto;
+    overflow: hidden;
+}
+
+.toolbar{
+    background: #fff !important;
+    text-align: center !important;
+}
+.maskLayer{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+}
+
+.async_bg {
+    position: fixed;
+    top: 0;
+    left: -480px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 11;
+}
+.async{
+    display: inline-block;
+    width: 710px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    margin-left: -355px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 2px 5px 1px #989696;
+    -moz-box-shadow: 1px 2px 5px 1px #989696;
+    box-shadow: 1px 2px 5px 1px #989696;
+}
+.modal{
+    width: 714px;
+    margin-left: -357px;
+}
+
+.modal .top{
+    width: 100%;
+    height:40px;
+    background: #eee;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.modal .top .search{
+    width: 6%;
+    height: 40px;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.modal .top .inputText{
+    width: 94%;
+    float: left;
+}
+
+.modal .top .inputText input{
+    width: 100%;
+    height:40px;
+    line-height: 40px;
+    background: #eee;
+    border: none;
+    font-size: 12px;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow:none;
+}
+
+.modal .list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid #eee;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.modal .list .listTitle .conent{
+    border-bottom: 1px solid #eee;
+    border-top: none;
+}
+
+.modal .list .conent{
+    width: 98%;
+    padding-left: 2%;
+    height: auto;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+
+.modal .list .conent div{
+    height: 50px;
+    line-height: 50px;
+    float: left;
+    font-size: 14px;
+    color: #333;
+}
+
+.modal .list .fieldName, .modal .list .inputValue{
+    width: 30%;
+}
+
+.modal .list .inputValue input{
+    text-align: center;
+}
+
+.modal .list .type, .modal .list .describe{
+    width: 20%;
+}
+
+.modal .list .content{
+    width: 100%;
+    height: 305px;
+    overflow: auto;
+}
+
+.modal .body{
+    min-height: 130px;
+    max-height: none;
+}
+
+.modal .body p{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.modal .body p.hint{
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.orgOption{
+    width: 60px;
+    height: 36px;
+    float: left;
+    cursor: pointer;
+}
+
+.showOrg{
+    width: 25px;
+    height: 28px;
+    float: left;
+    cursor: pointer;
+    display: none;
+}
+
+.needShow{
+    width: 30px;
+    height: 28px;
+    float: left;
+    cursor: pointer;
+    display: none;
+}
+
+/*用户管理*/
+.userEditor{
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.userEditor .editorTop{
+    width: 100%;
+    padding-left: 1%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.userEditor .editorContent{
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 1%;
+    height: auto;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.editorContent dl{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.editorContent dl dt{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+    float: left;
+}
+.editorContent dl dt span{
+    color: #ff3366;
+}
+
+.editorContent dl dd{
+    width: 420px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 15px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ddd;
+    background: #F6F5F5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    margin-left: 25px;
+}
+
+.editorContent .userDetails{
+    padding: 5px 0 0 0;
+    margin-right: 20px;
+}
+
+.editorContent .userDetails p{
+    width: 100%;
+    height: 2px;
+    background: #eee;
+    margin: 15px 0 10px 0;
+}
+
+.userDetails dl{
+    margin-top: 0;
+}
+
+.userDetails dl dd, .roleDetails dl dd{
+    padding-left: 0;
+    border: none;
+    background: #fff;
+}
+
+.editorContent dl .setStatus{
+    border: none;
+    background: none;
+    padding-left: 0;
+}
+
+.editorContent dl .setStatus div{
+    width: 80px;
+    float: left;
+    position: relative;
+    padding-left: 23px;
+}
+
+.setStatus div input{
+    width: 18px;
+    height: 20px;
+    position: absolute;
+    z-index: 20;
+    top: 9px;
+    left: 0;
+    display: inline-block;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.setStatus div label{
+    width: 18px;
+    height: 20px;
+    position: absolute;
+    top: 9px;
+    left: 0;
+    z-index: 10;
+}
+
+dl.chooseRole dd{
+    width:  800px;
+    height: auto;
+    background: #fff;
+    padding-left: 0;
+}
+
+.chooseRole dd .top,.chooseRole dd .roleList{
+    width: 100%;
+    min-height: 56px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.chooseRole dd .roleList{
+    overflow: auto;
+    max-height: 210px;
+    border-bottom: none;
+    padding-bottom: 20px;
+}
+
+.chooseRole dd .detailsRole{
+    padding-top: 2px;
+}
+
+.chooseRole dd .top div, .chooseRole dd .roleList div, .chooseRole dd .detailsRole div{
+    min-width: 30px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 30px 0 13px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #27C6D3;
+    color: #fff;
+    margin: 10px 0 0 13px;
+    float: left;
+    position: relative;
+}
+
+.chooseRole dd .detailsRole div{
+    height: 32px;
+    line-height: 32px;
+    margin: 0 15px 0 0;
+    padding: 0 13px;
+    background: #fff;
+    border: 1px solid #eee;
+    color: #333;
+}
+
+.chooseRole dd .roleList div{
+    padding: 0 13px 0 13px;
+    background: #F6F5F5;
+    color: #333;
+    cursor: pointer;
+    border: 1px solid #F6F5F5;
+}
+
+.chooseRole dd .roleList div.checked {
+    border: 1px solid #27C6D3;
+}
+
+.chooseRole dd .top div span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.editorContent .editorBottom{
+    width: 100%;
+    padding: 35px 0 35px 120px;
+}
+
+.editorContent .editorBottom button.save{
+    background: #27C6D3;
+    color: #fff;
+    border: 1px solid #27C6D3;
+}
+
+.editorContent .editorBottom button a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.roleContent dl dd{
+    background: #fff;
+}
+
+.roleStatus{
+    position: relative;
+}
+
+.roleStatus .icons,.roleStatus input{
+    position: absolute;
+    width: 60px;
+    height: 36px;
+    top: 2px;
+    left: 0;
+    z-index: 10;
+}
+
+.roleStatus input{
+    display: inline-block;
+    z-index: 20;
+    opacity: 0;
+    cursor: pointer;
+}
+
+dl.roleExplain, dl.roleExplain dd, dl.roleTree, dl.roleTree dd{
+    height: auto;
+}
+
+dl.roleExplain dd textarea{
+    width: 500px;
+    height: 100px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    resize: none;
+    padding: 8px;
+    outline: none;
+}
+
+.roleDetailsTree{
+    margin-top: 13px;
+}

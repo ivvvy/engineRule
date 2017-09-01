@@ -1,0 +1,211 @@
+﻿.icons {
+    display: inline-block;
+    background: url("../images/icons.svg");
+}
+
+.icon-lock {
+    height: 20px;
+    width: 15px;
+    background-position: -128px -192px;
+}
+
+.icon-add-round {
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+    background-position: -14px -191px;
+    cursor: pointer;
+}
+
+.icon-change {
+    height: 16px;
+    width: 15px;
+    background-position: -64px -196px;
+    vertical-align: middle;
+}
+
+.icon-delete-red {
+    height: 18px;
+    width: 18px;
+    background-position: -88px -195px;
+    vertical-align: bottom;
+}
+
+.icon-avatar {
+    height: 40px;
+    width: 40px;
+    margin: 20px 10px;
+    background-position: 0px -3px;
+}
+
+.icon-menu-home {
+    background-position: -2px -46px;
+}
+
+.icon-menu-sys {
+    background-position: -35px -46px;
+}
+
+.icon-menu-rule {
+    background-position: -73px -46px;
+}
+
+.icon-arrow-switch {
+    height: 30px;
+    width: 20px;
+    background-position: -43px -6px;
+}
+
+.icon-arrow-right {
+    background-position: -43px -6px;
+    height: 30px;
+    width: 20px;
+}
+
+.icon-arrow-down {
+    background-position: -63px -6px;
+    height: 30px;
+    width: 20px;
+}
+
+.icon-close {
+    height: 20px;
+    width: 20px;
+    float: right;
+    margin: 10px 0;
+    background-position: -102px -11px;
+    cursor: pointer;
+}
+
+.icon-tip-success {
+    height: 24px;
+    width: 20px;
+    vertical-align: top;
+    background-position: -134px -8px;
+}
+
+.icon-tip-fail {
+    height: 22px;
+    width: 20px;
+    vertical-align: top;
+    background-position: -156px -8px;
+}
+
+.icon-plus {
+    height: 15px;
+    width: 15px;
+    vertical-align: top;
+    background-position: -183px -11px;
+}
+
+.icon-chevron-left {
+    height: 15px;
+    width: 15px;
+    background-position: -239px -11px;
+}
+
+.icon-chevron-right {
+    height: 15px;
+    width: 15px;
+    background-position: -215px -11px;
+}
+
+.icon-arrow-bold-right {
+    height: 10px;
+    width: 10px;
+    background-position: -289px -12px;
+    margin-right: 5px;
+}
+
+.icon-arrow-bold-down {
+    height: 10px;
+    width: 10px;
+    background-position: -265px -12px;
+    margin-right: 5px;
+}
+
+.icon-async {
+    width: 20px;
+    height: 20px;
+    background-position: -356px -112px;
+}
+
+.icon-status-true {
+    background-position: -422px -147px;
+}
+
+.icon-status-false {
+    background-position: -422px -106px;
+}
+
+.icon-status-editor {
+    background-position: -49px -106px;
+}
+
+.icon-status-editor:hover {
+    background-position: -49px -147px;
+}
+
+.icon-status-save {
+    background-position: -494px -105px;
+}
+
+.icon-status-save:hover {
+    background-position: -494px -145px;
+}
+
+.icon-status-delete {
+    background-position: -519px -105px;
+}
+
+.icon-status-delete:hover {
+    background-position: -519px -145px;
+}
+
+.icon-checkbox-true {
+    background-position: -591px -155px;
+}
+
+.icon-checkbox-false {
+    background-position: -591px -115px;
+}
+
+.icon-user-details {
+    background-position: -13px -106px;
+}
+
+.icon-user-details:hover {
+    background-position: -13px -147px;
+}
+
+.icon-user-editor {
+    background-position: -48px -107px;
+}
+
+.icon-user-editor:hover {
+    background-position: -48px -148px;
+}
+
+.icon-user-delete {
+    background-position: -83px -106px;
+}
+
+.icon-user-delete:hover {
+    background-position: -83px -147px;
+}
+
+.icon-user-reference {
+    background-position: -118px -105px;
+}
+
+.icon-user-reference:hover {
+    background-position: -118px -146px;
+}
+
+.icon-radio-true {
+    background-position: -686px -154px;
+}
+
+.icon-radio-false {
+    background-position: -686px -113px;
+}
