@@ -34,7 +34,7 @@ import java.util.List;
  * @date: 2017-08-28 9:20
  */
 @Controller
-@RequestMapping(value = "/rulengine/{areaType}/decision_flow")
+@RequestMapping(value = "/{areaType}/decision_flow")
 public class DecisionFlowController {
     /*TODO:User Model 未设定，先将 userId,orgId设为定值，等权限管理完成之后再改*/
     static String userId = "8008208820";
@@ -179,7 +179,8 @@ public class DecisionFlowController {
             if (oldDecisionFlowList != null && oldDecisionFlowList.size() > 0) {
                 DecisionFlow checkDecisionFlow = oldDecisionFlowList.get(0);
                 if (checkDecisionFlow != null && (!new Integer("1").equals(checkDecisionFlow.getIsLock()) || userId.equals(checkDecisionFlow.getUserId()))) {
-                    lockService.addDecisionFlowLock(userId, checkDecisionFlow.getControlNo());
+                    checkDecisionFlow.setUserId(userId);
+                    lockService.addDecisionFlowLock(checkDecisionFlow);
                     rulengineResponse.setRetCode("00");
                     rulengineResponse.setRetMsg("成功");
                 } else {

@@ -1,68 +1,93 @@
-.variableSelect{
+.variableSelect {
     width: 350px;
 }
 
-.segmentation{
-    background:#ffffff;
-    border:1px solid #cccccc;
-    width:82px;
-    height:30px;
+.matrixTable {
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    background-color: #E5E5E5;
+    font-size: 12px;
+    border-spacing: 1px;
+    margin-top: 5px;
+}
+
+.matrixTable tr {
+    background-color: white;
+}
+
+.matrixTable tr td.visited {
+    border: solid 1px #29C6D4;
+    outline: none;
+    background-color: #ECFCFF;
+}
+
+.matrixTable tr:first-of-type,
+.matrixTable tr td:first-of-type {
+    background-color: #EBF6F9;
+}
+
+.segmentation {
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    width: 82px;
+    height: 30px;
     line-height: 30px;
     border-radius: 4px;
     box-sizing: border-box;
-    color:#323232;
-    display: none;
+    color: #323232;
 }
 
-.rightBox{
+.rightBox {
     border: 1px solid #dddddd;
     padding: 20px;
 }
 
-.segmentationTable{
+.segmentationTable {
     width: 100%;
-    border-spacing:0;
+    border-spacing: 0;
     line-height: 25px;
 }
 
-.segmentationTable thead{
+.segmentationTable thead {
     background-color: #e0f0f2;
 
 }
 
-.segmentationTable thead tr td{
+.segmentationTable thead tr td {
     font-size: 12px;
-    color:#323232;
+    color: #323232;
     padding: 0 10px;
 }
 
-.segmentationTable tbody tr:first-child td{
-    border-top:1px solid #d9d9d9;
+.segmentationTable tbody tr:first-child td {
+    border-top: 1px solid #d9d9d9;
 }
 
-.segmentationTable tbody tr td{
-    border-bottom:1px solid #d9d9d9;
+.segmentationTable tbody tr td {
+    border-bottom: 1px solid #d9d9d9;
     padding: 0 10px;
 }
 
-.segmentationTable tbody tr.selected{
-    background-color:#fbfbfb ;
+.segmentationTable tbody tr.selected {
+    background-color: #fbfbfb;
 }
 
-.segmentationTable tr td{
+.segmentationTable tr td {
 
 }
 
-.segmentationTable input{
+.segmentationTable input {
     border: none;
     box-shadow: none;
     outline: none;
 }
-.segmentationTable select{
+
+.segmentationTable select {
     margin: 5px 0 5px 0;
 }
 
-.segmentationTable .remove{
+.segmentationTable .remove {
     display: inline-block;
     font-size: 12px;
     text-decoration: underline;
@@ -72,7 +97,7 @@
     cursor: pointer;
 }
 
-.addScore{
+.addScore {
     text-align: center;
     border: 1px dashed #12b9c8;
     border-radius: 4px;

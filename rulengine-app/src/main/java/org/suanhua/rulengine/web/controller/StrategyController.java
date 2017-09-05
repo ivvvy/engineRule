@@ -39,7 +39,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "/rulengine/{areaType}/strategy")
+@RequestMapping(value = "/{areaType}/strategy")
 public class StrategyController {
 
     /*TODO:User Model 未设定，先将 userId,orgId设为定值，等权限管理完成之后再改*/
@@ -53,7 +53,8 @@ public class StrategyController {
     private LockService lockService;
 
 
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    @RequestMapping(value = "/query", method = {
+            RequestMethod.POST })
     public
     @ResponseBody
     StrategyQueryResp queryStrategy(@RequestBody StrategyQueryReq strategyQueryReq, HttpSession httpSession, @PathVariable String areaType) {
@@ -205,7 +206,8 @@ public class StrategyController {
              * 判断用户是否有锁权限，若用户有权限则，则修改该条记录锁状态
              */
             if (checkStragegy != null && (checkStragegy.getIsLock() != 1 || userId.equals(checkStragegy.getUserId()))) {
-                lockService.addStrategyLock(userId, checkStragegy.getControlNo());
+                checkStragegy.setUserId(userId);
+                lockService.addStrategyLock(checkStragegy);
                 rulengineResponse.setRetCode("00");
                 rulengineResponse.setRetMsg("成功");
             } else {

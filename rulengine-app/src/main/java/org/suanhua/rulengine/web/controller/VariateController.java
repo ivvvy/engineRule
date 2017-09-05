@@ -203,7 +203,8 @@ public class VariateController {
         try {
             BaseVariate checkVariate = baseVariateDataService.getVariateByControlNo(baseVariate.getControlNo());
             if (checkVariate != null && (checkVariate.getIsLock() != 1 || userId.equals(checkVariate.getUserId()))) {
-                lockService.addBaseVariateLock(userId, checkVariate.getControlNo());
+                checkVariate.setUserId(userId);
+                lockService.addBaseVariateLock(checkVariate);
                 rulengineResponse.setRetCode("00");
                 rulengineResponse.setRetMsg("成功");
             } else {

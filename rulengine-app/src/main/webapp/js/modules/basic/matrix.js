@@ -1,24 +1,48 @@
 /**
  * Created by xinyu.cai on 2017/8/28.
  */
-define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
+define(['jquery', 'vue', 'Utils', 'Engine'], function ($, Vue, Utils, Engine) {
     new Vue({
         el: "#body",
         data: {
+            openSource: false,
+            formData: {
+                strategyName: "",   //名称
+                description: "",    //描述
+                sort: "",           //分类
+                strategyJson: "",   //策略json定义
+                strategyType: "MATRIX",
+                strategyBody: "",       //策略drl内容
+                compilingStatus: "1",        //编译状态{"编译失败":"0","编译成功":"1", "编写中":"2"}
+            },
             right: {},
+            setIndex: -1,
             rows: {},
             cols: {},
-            results:{},
+            results: {},
             variate: {},
             tableData: {},
+        },
+        filters: {
+            leftComparatorReverse: function (comparator) {
+                return {
+                        ">=": "=<",
+                        ">": "<",
+                        "<=": "=>",
+                        "<": ">"
+                    }[comparator] || comparator;
+            }
+        },
+        created: function () {
+            if (!this.results.outcomes) Vue.set(this.results, "outcomes", []);
         },
         mounted: function () {
 
         },
         methods: {
+            //行变量
             openRowVarList: function (event) {
                 var _self = this;
-                var el=event.target;
                 Utils.openModal({
                     title: "选择变量",
                     width: 600,
@@ -28,14 +52,8 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                         ok: function (item) {
                             item = item || {temp: {}};
                             Vue.set(_self.rows, 'name', item.temp.variate.name);
-                            console.log("rows:"+JSON.stringify(_self.rows));
                             Vue.set(_self.rows, 'paramType', item.temp.variate.paramType);
-                            if(_self.rows!==""){
-                                $(el).siblings(".rowModal").show();
-                            }
                             delete item.temp;
-
-
                         },
                         cancel: function (item) {
                             item = item || {temp: {}};
@@ -44,9 +62,9 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                     }
                 });
             },
+            //列变量
             openColVarList: function (event) {
                 var _self = this;
-                var el=event.target;
                 Utils.openModal({
                     title: "选择变量",
                     width: 600,
@@ -57,12 +75,7 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                             item = item || {temp: {}};
                             Vue.set(_self.cols, 'name', item.temp.variate.name);
                             Vue.set(_self.cols, 'paramType', item.temp.variate.paramType);
-                            if(_self.cols!==""){
-                                $(el).siblings(".colModal").show();
-                            }
                             delete item.temp;
-
-
                         },
                         cancel: function (item) {
                             item = item || {temp: {}};
@@ -71,6 +84,7 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                     }
                 });
             },
+            //结果变量
             openResVarList: function () {
                 var _self = this;
                 Utils.openModal({
@@ -93,17 +107,18 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                 });
             },
             //切分变量
-            syncopateVar: function () {
+            syncopateVar: function (type, conditions) {
                 var _self = this;
                 Utils.openModal({
-                    title: "切分行变量",
+                    title: "切分" + (type || "") + "变量",
                     width: 600,
-                    currentView: "addSegmentation",
-                    componentParam: this.variate.scores,
+                    currentView: "syncopateVar",
+                    componentParam: (conditions || []).slice(0),
                     action: {
                         ok: function (item) {
                             item = item || {temp: {}};
-                            Vue.set(_self.variate, "scores", item.temp.scores);
+                            if (type == "行") Vue.set(_self.rows, "conditions", item.temp.scores);
+                            if (type == "列") Vue.set(_self.cols, "conditions", item.temp.scores);
                             delete item.temp;
                         },
                         cancel: function (item) {
@@ -113,8 +128,36 @@ define(['jquery', 'vue', 'Utils'], function ($, Vue, Utils) {
                     }
                 });
             },
-            showTable: function () {
+            //编辑结果
+            editResultOutcome: function (outcome, index) {
+                this.setIndex = index;
+                if (!!outcome) this.right = $.extend({}, outcome);
+                else this.right = {type: "const"};
+            },
+            //设置结果
+            resetOutcome: function () {
+                if (!this.results.outcomes) Vue.set(this.results, "outcomes", []);
+                Vue.set(this.results.outcomes, this.setIndex, $.extend({operator: "="}, this.right));
+            },
+            //获取矩阵json数据
+            getMatrixJSON: function () {
+                var matrixData = {
+                    tableName: this.formData.strategyName || "",
+                    cols: [this.cols],
+                    rows: [this.rows],
+                    results: [this.results]
+                };
 
+                return matrixData;
+            },
+            //查看源代码
+            readSourceCode: function () {
+                this.openSource = !this.openSource;
+                if (this.openSource) {
+                    this.$nextTick(function () {
+                        this.formData.strategyBody = new Engine.Table("ace-area").translateMatrix(this.getMatrixJSON());
+                    });
+                }
             }
 
         }

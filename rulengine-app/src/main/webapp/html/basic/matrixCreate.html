@@ -8,84 +8,152 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
     <link rel="stylesheet" type="text/css" href="../../css/matrix.css"/>
-    <link rel="stylesheet" type="text/css" href="../../css/handsontable.full.min.css"/>
 </head>
 <body>
-    <div id="body">
-        <layout-main path="规则工程->底层->策略->新建决策矩阵">
-            <div slot="content">
-                <div class="mainContent">
-                    <div class="title">新建决策矩阵</div>
-                    <div class="body">
-                        <div class="line">
-                            <span class="desc"><span class="redX">*</span>名称</span>
-                            <div class="input">
-                                <input type="text" style="width: 350px">
-                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
-                            </div>
-                        </div>
-                        <div class="line">
-                            <span class="desc"><span class="redX">*</span>描述</span>
-                            <div class="input">
-                                <input type="text" style="width: 350px">
-                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
-                            </div>
-                        </div>
-                        <div class="line">
-                            <span class="desc"><span class="redX">*</span>分类</span>
-                            <div class="input">
-                                <input type="text" style="width: 350px">
-                                <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div style="margin: 20px 0">决策矩阵定义</div>
-                        <div class="variableBox">
-                            <div class="line">
-                                <span class="desc"><span class="redX">*</span>行变量</span>
-                                <div class="input">
-                                    <input class="variableSelect rowsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openRowVarList" v-model="rows.name">
-                                    <button class="segmentation rowModal" @click="syncopateVar">切分表</button>
-                                </div>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->新建决策矩阵">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">新建决策矩阵</div>
+                <div class="body">
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>名称</span>
 
+                        <div class="input">
+                            <input type="text" style="width: 350px" v-model="formData.strategyName">
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>描述</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px" v-model="formData.description">
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <span class="desc"><span class="redX">*</span>分类</span>
+
+                        <div class="input">
+                            <input type="text" style="width: 350px" v-model="formData.sort">
+
+                            <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0">决策矩阵定义</div>
+                    <div class="variableBox">
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>行变量</span>
+
+                            <div class="input">
+                                <input class="variableSelect rowsVal" type="text" readonly="readonly"
+                                       placeholder="请选择变量" @click="openRowVarList" v-model="rows.name">
+                                <button class="segmentation rowModal" @click="syncopateVar('行',rows.conditions)"
+                                        v-if="!!rows.name">切分表
+                                </button>
                             </div>
-                            <div class="line">
-                                <span class="desc"><span class="redX">*</span>列变量</span>
-                                <div class="input">
-                                    <input class="variableSelect colsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openColVarList" v-model="cols.name">
-                                    <button class="segmentation colModal">切分表</button>
-                                </div>
+
+                        </div>
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>列变量</span>
+
+                            <div class="input">
+                                <input class="variableSelect colsVal" type="text" readonly="readonly"
+                                       placeholder="请选择变量" @click="openColVarList" v-model="cols.name">
+                                <button class="segmentation colModal" v-if="!!cols.name"
+                                        @click="syncopateVar('列',cols.conditions)">切分表
+                                </button>
                             </div>
-                            <div class="line">
-                                <span class="desc"><span class="redX">*</span>结果变量</span>
-                                <div class="input">
-                                    <input class="variableSelect resultsVal" type="text" readonly="readonly" placeholder="请选择变量" @click="openResVarList" v-model="results.name">
-                                </div>
+                        </div>
+                        <div class="line">
+                            <span class="desc"><span class="redX">*</span>结果变量</span>
+
+                            <div class="input">
+                                <input class="variableSelect resultsVal" type="text" readonly="readonly"
+                                       placeholder="请选择变量" @click="openResVarList" v-model="results.name">
                             </div>
                         </div>
-                        <div class="rightBox">
-                            <right-part v-bind:right="right" v-bind:withfn="true"></right-part>
-                            <button class="btn_success" style="height: 30px;line-height: 30px">确定</button>
-                            <button class="btn_cancel" style="height: 30px;line-height: 30px">取消</button>
-                        </div>
-                        <div class="table">
-                            <table>
-                                <tr v-for="varItem in vars">
-                                    <td>
-                                        <matrix-table></matrix-table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="margin: 20px 60px;">
-                            <button class="btn_success_empty">编译</button>
-                            <button class="btn_success">保存</button>
-                            <button>取消</button>
-                        </div>
+                    </div>
+                    <div class="rightBox">
+                        <right-part v-bind:right="right" v-bind:withfn="false"></right-part>
+                        <button class="btn_success" style="height: 30px;line-height: 30px" v-on:click="resetOutcome">
+                            确定
+                        </button>
+                        <button class="btn_cancel" style="height: 30px;line-height: 30px"
+                                v-on:click="right={type:'const'}">取消
+                        </button>
+                    </div>
+                    <div class="table">
+                        <table class="matrixTable" v-if="!!cols.conditions || !!rows.conditions">
+                            <tr>
+                                <td></td>
+                                <td v-for="col in cols.conditions">
+                                    <span v-if="col.leftLine">
+                                        <span v-if="col.leftLine.right">
+                                            {{col.leftLine.right.value}}
+                                        </span>
+                                        {{col.leftLine.comparator | leftComparatorReverse}}
+                                    </span>
+                                    {{cols.name}}
+                                    <span v-if="col.rightLine">
+                                        {{col.rightLine.comparator}}
+                                        <span v-if="col.rightLine.right">
+                                            {{col.rightLine.right.value}}
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr v-for="(row,index) in rows.conditions">
+                                <td>
+                                    <span v-if="row.leftLine">
+                                        <span v-if="row.leftLine.right">
+                                            {{row.leftLine.right.value}}
+                                        </span>
+                                        {{row.leftLine.comparator | leftComparatorReverse}}
+                                    </span>
+                                    {{rows.name}}
+                                    <span v-if="row.rightLine">
+                                        {{row.rightLine.comparator}}
+                                        <span v-if="row.rightLine.right">
+                                            {{row.rightLine.right.value}}
+                                        </span>
+                                    </span>
+                                </td>
+                                <td v-on:click="editResultOutcome(results.outcomes[index * (cols.conditions || []).length + i -1],(index * (cols.conditions || []).length + i -1))"
+                                    v-for="i in (cols.conditions || []).length"
+                                    v-bind:class="setIndex == (index * (cols.conditions || []).length + i -1) ? 'visited':''">
+                                    <template
+                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='const'">
+                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] ||{}).value}}
+                                    </template>
+                                    <template
+                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='var'">
+                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).name}}
+                                    </template>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="readCode" v-bind:class="openSource?'opened':''" v-on:click.self="readSourceCode">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <div style="margin: 20px 60px;">
+                        <button class="btn_success_empty">编译</button>
+                        <button class="btn_success">保存</button>
+                        <button>取消</button>
                     </div>
                 </div>
             </div>
-        </layout-main>
-    </div>
+        </div>
+    </layout-main>
+</div>
 </body>
 </html>

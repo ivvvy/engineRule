@@ -6,13 +6,15 @@ define(["jquery", "underscore", "vue", 'Utils',
         'text!html/templates/layoutMain.html', 'text!html/templates/subMenu.html', 'text!html/templates/rightPart.html',
         'text!html/templates/linePart.html', 'text!html/templates/constraintPart.html', 'text!html/templates/resultPart.html',
         'text!html/templates/cardVarPart.html', 'text!html/templates/syncopateVar.html', 'text!html/templates/referenceList.html',
-        'text!html/templates/selectStrategyList.html',
+        'text!html/templates/selectStrategyList.html', 'text!html/templates/selectStrategySetList.html',
         'text!html/templates/variateList.html', 'text!html/templates/asyncList.html', 'text!html/templates/fnList.html',
-        'text!html/templates/beReferenceList.html', 'text!html/templates/versionTest.html', 'text!html/templates/versionTestEntry.html'],
+        'text!html/templates/beReferenceList.html', 'text!html/templates/versionTest.html', 'text!html/templates/versionTestEntry.html', 'text!html/templates/LineComparePart.html',
+        'text!html/templates/testResult.html', 'text!html/templates/testResultFalse.html', 'text!html/templates/varCreate.html',
+        'text!html/templates/uploadFile.html'],
     function ($, _, Vue, Utils, LayoutTmp, SubMenuTpl, RightPartTpl, LinePartTpl, ConstraintPartTpl, ResultPartTpl, CardVarTpl,
-              SyncopateVarTpl, ReferenceListTpl, SelectStrategyListTpl, VariateListTpl, asyncAlertList, FnListTpl, BeReferenceListTpl, versionTestList, versionTestEntryList) {
-        //function ($, _, Vue, Utils, LayoutTmp, SubMenuTpl, RightPartTpl, LinePartTpl, ConstraintPartTpl, ResultPartTpl, CardVarTpl,
-        //SyncopateVarTpl, ReferenceListTpl, BeReferenceListTpl, VariateListTpl, asyncAlertList, FnListTpl) {
+              SyncopateVarTpl, ReferenceListTpl, SelectStrategyListTpl, SelectStrategySetListTpl,
+              VariateListTpl, asyncAlertList, FnListTpl, BeReferenceListTpl, versionTestList,
+              versionTestEntryList, LineComparePartTpl, TestResult, TestResultFalse, VarCreate, UploadFile) {
 
         window.GlobalComponents = {
             //左侧菜单
@@ -29,7 +31,7 @@ define(["jquery", "underscore", "vue", 'Utils',
                 },
                 filters: {
                     menuLinkFilter: function (href) {
-                        if (!!href) return "/rulengine-app/html/" + href;
+                        if (!!href) return rootUrl + "/html/" + href;
                         return "#";
                     }
                 }
@@ -49,9 +51,9 @@ define(["jquery", "underscore", "vue", 'Utils',
                             {name: "首页", link: "index.html", icon: "home"},
                             {
                                 name: "系统管理", link: "", icon: "sys", childMenu: [
-                                {name: "机构管理", link: "orgManager.html"},
-                                {name: "用户管理", link: "orgUserManager.html"},
-                                {name: "角色管理", link: "roleManager.html"}
+                                {name: "机构管理", link: "auth/orgManager.html"},
+                                {name: "用户管理", link: "auth/orgUserManager.html"},
+                                {name: "角色管理", link: "auth/roleManager.html"}
                             ]
                             },
                             {
@@ -59,7 +61,9 @@ define(["jquery", "underscore", "vue", 'Utils',
                                 {
                                     name: "底层", link: "", childMenu: [
                                     {name: "变量", link: "basic/variateList.html"},
-                                    {name: "策略", link: "basic/strategyList.html"},
+                                    {
+                                        name: "策略", link: "basic/strategyList.html"
+                                    },
                                     {name: "策略集", link: "basic/strategySetList.html"},
                                     {name: "决策流", link: "basic/decisionFlowList.html"}
                                 ]
@@ -89,7 +93,7 @@ define(["jquery", "underscore", "vue", 'Utils',
                 },
                 filters: {
                     menuLinkFilter: function (href) {
-                        if (!!href) return "/rulengine-app/html/" + href;
+                        if (!!href) return rootUrl + "/html/" + href;
                         return "#";
                     }
                 }
@@ -304,16 +308,7 @@ define(["jquery", "underscore", "vue", 'Utils',
                     comparatorLines: {
                         get: function () {
                             if (!this.tempOptions || this.tempOptions.length == 0)
-                                return [{
-                                    leftLine: {
-                                        comparator: "",
-                                        right: {type: "const", value: ""}
-                                    }, rightLine: {
-                                        comparator: "",
-                                        right: {type: "const", value: ""}
-                                    }
-                                }];
-
+                                return null;
                             var filterOptions = _.filter(this.tempOptions, function (item) {
                                 return item.type != "else";
                             });
@@ -364,7 +359,10 @@ define(["jquery", "underscore", "vue", 'Utils',
                         Vue.delete(this.tempOptions, index);
                     },
                     addLine: function () {
-                        var length = Math.max(0, this.tempOptions.length - 1);
+                        var filterOptions = _.filter(this.tempOptions, function (item) {
+                            return item.type != "else";
+                        });
+                        var length = Math.max(0, filterOptions.length);
                         this.tempOptions.splice(length, 0, {
                             leftLine: {},
                             rightLine: {comparator: "=="},
@@ -553,74 +551,10 @@ define(["jquery", "underscore", "vue", 'Utils',
             //选择策略
             selectStrategyList: Vue.component('select-strategy', {
                 template: SelectStrategyListTpl,
-                props: ["selected", "options"],
+                props: ["selected", "areaType", "options"],
                 data: function () {
                     return {
-                        strategyList: [
-                            {
-                                "controlNo": "RULE201708290004",
-                                "versions": "V1.0.0",
-                                "orgId": "1008610086",
-                                "sort": "反欺诈",
-                                "description": "规则2",
-                                "creater": "8008208820",
-                                "updater": "8008208820",
-                                "status": null,
-                                "isLock": null,
-                                "userId": null,
-                                "strategyType": "RULE",
-                                "strategyName": "RULE_TEST_2",
-                                "strategyBody": "rule \"RULE_TEST_2\"\n\tdialect \"mvel\"\nwhen\n\tapp : HashMap()\nthen\n\tHashMap input = app.INPUT;\n\tHashMap output = app.OUTPUT;\n\tHashMap temp = app.TEMP;\n\n\tif( (input.STAN_PRODUCT_NUM == \"现金贷\")){\n\t\toutput.STAN_LOAN_TYPE = \"拒绝\";\n\t}\nend\n",
-                                "strategyJson": "{\"ruleName\":\"RULE_TEST_2\",\"then\":[{\"type\":\"if\",\"constraint\":[{\"left\":{\"name\":\"STAN_PRODUCT_NUM\",\"paramType\":\"INPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"现金贷\\\"\"},\"operator\":\"==\"}],\"result\":[{\"operator\":\"=\",\"left\":{\"name\":\"STAN_LOAN_TYPE\",\"paramType\":\"OUTPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"拒绝\\\"\"}}]}]}",
-                                "show": null,
-                                "rowVar": null,
-                                "lineVar": null,
-                                "resultVar": null,
-                                "compilingStatus": 2
-                            },
-                            {
-                                "controlNo": "RULE201708290005",
-                                "versions": "V1.0.0",
-                                "orgId": "1008610086",
-                                "sort": "反欺诈",
-                                "description": "规则5",
-                                "creater": "8008208820",
-                                "updater": "8008208820",
-                                "status": null,
-                                "isLock": null,
-                                "userId": null,
-                                "strategyType": "RULE",
-                                "strategyName": "RULE_TEST_2",
-                                "strategyBody": "rule \"RULE_TEST_2\"\n\tdialect \"mvel\"\nwhen\n\tapp : HashMap()\nthen\n\tHashMap input = app.INPUT;\n\tHashMap output = app.OUTPUT;\n\tHashMap temp = app.TEMP;\n\n\tif( (input.STAN_PRODUCT_NUM == \"现金贷\")){\n\t\toutput.STAN_LOAN_TYPE = \"拒绝\";\n\t}\nend\n",
-                                "strategyJson": "{\"ruleName\":\"RULE_TEST_2\",\"then\":[{\"type\":\"if\",\"constraint\":[{\"left\":{\"name\":\"STAN_PRODUCT_NUM\",\"paramType\":\"INPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"现金贷\\\"\"},\"operator\":\"==\"}],\"result\":[{\"operator\":\"=\",\"left\":{\"name\":\"STAN_LOAN_TYPE\",\"paramType\":\"OUTPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"拒绝\\\"\"}}]}]}",
-                                "show": null,
-                                "rowVar": null,
-                                "lineVar": null,
-                                "resultVar": null,
-                                "compilingStatus": 2
-                            },
-                            {
-                                "controlNo": "RULE201708290006",
-                                "versions": "V1.0.0",
-                                "orgId": "1008610086",
-                                "sort": "反欺诈",
-                                "description": "规则6",
-                                "creater": "8008208820",
-                                "updater": "8008208820",
-                                "status": null,
-                                "isLock": null,
-                                "userId": null,
-                                "strategyType": "RULE",
-                                "strategyName": "RULE_TEST_2",
-                                "strategyBody": "rule \"RULE_TEST_2\"\n\tdialect \"mvel\"\nwhen\n\tapp : HashMap()\nthen\n\tHashMap input = app.INPUT;\n\tHashMap output = app.OUTPUT;\n\tHashMap temp = app.TEMP;\n\n\tif( (input.STAN_PRODUCT_NUM == \"现金贷\")){\n\t\toutput.STAN_LOAN_TYPE = \"拒绝\";\n\t}\nend\n",
-                                "strategyJson": "{\"ruleName\":\"RULE_TEST_2\",\"then\":[{\"type\":\"if\",\"constraint\":[{\"left\":{\"name\":\"STAN_PRODUCT_NUM\",\"paramType\":\"INPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"现金贷\\\"\"},\"operator\":\"==\"}],\"result\":[{\"operator\":\"=\",\"left\":{\"name\":\"STAN_LOAN_TYPE\",\"paramType\":\"OUTPUT\"},\"right\":{\"type\":\"const\",\"value\":\"\\\"拒绝\\\"\"}}]}]}",
-                                "show": null,
-                                "rowVar": null,
-                                "lineVar": null,
-                                "resultVar": null,
-                                "compilingStatus": 2
-                            }
-                        ],
+                        strategyList: [],
                         StrategyTypeList: Utils.Const.StrategyTypeList,
                         sortParam: {
                             pageNum: 1,
@@ -628,21 +562,42 @@ define(["jquery", "underscore", "vue", 'Utils',
                             sortField: "createTime",
                             order: "desc"
                         },
-                        totalCount: 200
+                        queryParam: {
+                            strategyName: "",
+                            strategyType: ""
+                        },
+                        totalCount: 0
                     }
                 },
                 mounted: function () {
-                    //todo:load list from server
-                    var _self = this;
-                    _.each(this.strategyList || [], function (item) {
-                        var selectedList = _self.selected || [];
-                        var selected = !!(_.find(selectedList, function (se) {
-                            return se.controlNo == item.controlNo
-                        }));
-                        _self.$refs.table.toggleRowSelection(item, selected);
-                    });
+                    this.asyncStrategyList();
                 },
                 methods: {
+                    asyncStrategyList: function () {
+                        var _self = this;
+                        $.postJSON("/" + this.areaType + "/strategy/fuzzy_match", {
+                            queryParam: this.queryParam,
+                            sortParam: this.sortParam
+                        }, function (res) {
+                            if (res && res.retCode == "00") {
+                                var data = res.data || {};
+                                var list = data.queryList || [];
+                                _self.strategyList.splice(0, _self.strategyList.length);
+                                _.each(list, function (item) {
+                                    _self.strategyList.push(item);
+                                });
+                                _self.totalCount = data.rowCount || 0;
+                                _self.sortParam.pageNum = data.currentPage || 1;
+                                _.each(_self.strategyList || [], function (item) {
+                                    var selectedList = _self.selected || [];
+                                    var selected = !!(_.find(selectedList, function (se) {
+                                        return se.controlNo == item.controlNo
+                                    }));
+                                    _self.$refs.table.toggleRowSelection(item, selected);
+                                });
+                            }
+                        });
+                    },
                     //策略类型
                     strategyTypeFormatter: function (row, column, cellValue) {
                         var strategyType = _.find(Utils.Const.StrategyTypeList, function (item) {
@@ -653,13 +608,96 @@ define(["jquery", "underscore", "vue", 'Utils',
                     },
                     //pageSize 改变
                     handlePaginationSizeChange: function (pageSize) {
+                        this.sortParam.pageSize = pageSize;
+                        this.asyncStrategyList();
                     },
                     //currentPage 改变
                     handlePaginationCurrentChange: function (currentPage) {
+                        this.sortParam.pageNum = currentPage;
+                        this.asyncStrategyList();
+                    },
+                    //排序改变
+                    handleSortChange: function (setting) {
+                        this.sortParam.sortField = setting.prop;
+                        this.sortParam.order = {
+                                "ascending": "asc",
+                                "descending": "desc"
+                            }[setting.order] || "desc";
+                        this.asyncStrategyList();
                     },
                     //勾选变化
                     handleSelectionChange: function (selection) {
+                        //将selection的runLevel带上
+                        var selectedList = this.selected || [];
+                        _.map(selection, function (item) {
+                            var selected = _.find(selectedList, function (se) {
+                                return se.controlNo == item.controlNo;
+                            });
+                            if (!!selected) item.runLevel = selected.runLevel;
+                        });
                         this.options.temp = {selectedList: selection};
+                    }
+                }
+            }),
+            //选择策略集
+            selectStrategySetList: Vue.component('select-strategyset', {
+                template: SelectStrategySetListTpl,
+                props: ["selected", "areaType", "options"],
+                data: function () {
+                    return {
+                        strategySetList: [],
+                        sortParam: {
+                            pageNum: 1,
+                            pageSize: 10,
+                            sortField: "createTime",
+                            order: "desc"
+                        },
+                        queryParam: {
+                            strategySetName: ""
+                        },
+                        totalCount: 0
+                    }
+                },
+                mounted: function () {
+                    this.asyncStrategySetList();
+                },
+                methods: {
+                    //获取策略集列表
+                    asyncStrategySetList: function () {
+                        var _self = this;
+                        $.postJSON("/" + this.areaType + "/strategyset/fuzzy_match", {
+                            queryParam: this.queryParam,
+                            sortParam: this.sortParam
+                        }, function (res) {
+                            //res = {"retCode":"00","retMsg":"成功","data":{"order":null,"pageCount":1,"currentPage":1,"pageSize":7,"rowCount":7,"sortField":null,"queryList":[{"controlNo":"SET201709010011","versions":"V1.0.0","strategySetName":"11","orgId":null,"sort":null,"description":"11","creater":null,"createTime":"2017-09-01 15:43:15","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null},{"controlNo":"SET201709010012","versions":"V1.0.0","strategySetName":"12","orgId":null,"sort":null,"description":"12","creater":null,"createTime":"2017-09-01 15:48:48","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null},{"controlNo":"SET201709010016","versions":"V1.0.0","strategySetName":"16","orgId":null,"sort":null,"description":"16","creater":null,"createTime":"2017-09-01 16:10:46","updater":null,"updateTime":null,"status":null,"isLock":0,"userId":null,"compilingStatus":null},{"controlNo":"SET201709040000","versions":"V1.0.1","strategySetName":"13","orgId":null,"sort":null,"description":"13","creater":null,"createTime":"2017-09-04 10:33:54","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null},{"controlNo":"SET201709040000","versions":"V1.0.1","strategySetName":"14","orgId":null,"sort":null,"description":"14","creater":null,"createTime":"2017-09-04 10:56:58","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null},{"controlNo":"SET201709040000","versions":"V1.0.1","strategySetName":"16","orgId":null,"sort":null,"description":"16","creater":null,"createTime":"2017-09-04 10:56:18","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null},{"controlNo":"SET201709040002","versions":"V1.0.5","strategySetName":"17","orgId":null,"sort":null,"description":"17","creater":null,"createTime":"2017-09-04 10:31:42","updater":null,"updateTime":null,"status":null,"isLock":null,"userId":null,"compilingStatus":null}]}};
+                            if (res && res.retCode == "00") {
+                                var data = res.data || {};
+                                var list = data.queryList || [];
+                                _self.strategySetList.splice(0, _self.strategySetList.length);
+                                _.each(list, function (item) {
+                                    item.selected = item.controlNo == _self.selected.controlNo;
+                                    _self.strategySetList.push(item);
+                                });
+                                _self.totalCount = data.rowCount || 0;
+                                _self.sortParam.pageNum = data.currentPage || 1;
+                            }
+                        });
+                    },
+                    //排序
+                    handleSortChange: function (setting) {
+                        this.sortParam.sortField = setting.prop;
+                        this.sortParam.order = {
+                                "ascending": "asc",
+                                "descending": "desc"
+                            }[setting.order] || "desc";
+                        this.asyncStrategySetList();
+                    },
+                    //切换行选中
+                    handleRowClick: function (row, event, column) {
+                        _.each(this.strategySetList, function (item) {
+                            item.selected = item.controlNo == row.controlNo;
+                        });
+                        this.options.temp = {selected: row};
                     }
                 }
             }),
@@ -790,7 +828,120 @@ define(["jquery", "underscore", "vue", 'Utils',
                     }
                 }
             }),
-            addSegmentation:Vue.component('syncopate-var', {
+            //版本测试结果正确弹出框
+            testResult: Vue.component('test-result', {
+                template: TestResult,
+                props: ["options"],
+                data: function () {
+                    return {
+                        keyWord: "",
+                        inputValue: [],
+                        dataResultList: []
+                    }
+                },
+                mounted: function () {
+                    this.getTestResutData()
+                },
+                methods: {
+                    getTestResutData: function () {
+                        console.log("获取版本测试结果正确弹出框数据");
+                    },
+                    testResultSearch: function () {
+                        console.log("点击查询");
+                    }
+                }
+            }),
+            //版本测试结果错误弹出框
+            testResultFalse: Vue.component('test-result-false', {
+                template: TestResultFalse,
+                props: ["options"],
+                data: function () {
+                    return {}
+                },
+                mounted: function () {
+                    this.getTestResutData()
+                },
+                methods: {
+                    getTestResutData: function () {
+                        console.log("获取版本测试结果正确弹出框数据");
+                    }
+                }
+            }),
+            //底层变量新增弹出框
+            varCreate: Vue.component('var-create', {
+                template: VarCreate,
+                props: ["options"],
+                data: function () {
+                    this.options.varCreatedatas.temp = $.extend({}, this.options.varCreatedatas);
+                    return {
+                        varCreateData: this.options.varCreatedatas.temp,
+                        serveType: [
+                            {value: "Integer", name: "数值型", checked: false},
+                            {value: "String", name: "字符型", checked: false},
+                            {value: "Date", name: "日期型", checked: false}
+                        ]
+                    }
+                },
+                mounted: function () {
+                    this.getDataType();
+                },
+                methods: {
+                    getDataType: function () {
+                        var _this = this;
+                        this.serveType.forEach(function (val) {
+                            if (val.value == _this.options.varCreatedatas.temp.dataType) {
+                                val.checked = true;
+                            }
+                        })
+                    },
+                    clickRadio: function (event) {
+                        var el = event.target;
+                        if ($(el).prop("checked")) {
+                            $(el).siblings("label").removeClass("icon-radio-false").addClass("icon-radio-true");
+                            $(el).parents(".inputP").siblings("div").find("label").removeClass("icon-radio-true").addClass("icon-radio-false");
+                        }
+                    }
+                }
+            }),
+            //文件上传
+            uploadFile: Vue.component('upload-file', {
+                template: UploadFile,
+                props: ["options"],
+                data: function () {
+                    this.options.formDatas.temp = $.extend({}, this.options.formDatas);
+                    return {
+                        fileName: "未选择任何文件"
+                    }
+                },
+                methods: {
+                    choice_files: function () {
+                        $("#my_fil").click();
+                    },
+                    valueChange: function(event){
+                        var file  = event.target.files[0];
+                        this.fileName = file.name;
+                        this.options.formDatas.temp = file;
+                    }
+                }
+            }),
+            //条件关系部分
+            lineComparePart: Vue.component('lineCompare-part', {
+                template: LineComparePartTpl,
+                props: ["constraint"],
+                data: function () {
+                    var operates = Utils.Const.ConstraintOperators;
+                    if (!!this.constraint && !this.constraint.operator) Vue.set(this.constraint, "operator", "");
+                    if (!!this.constraint && !this.constraint.right) Vue.set(this.constraint, "right", {});
+                    return {operates: operates};
+                },
+                methods: {
+                    changeOperator: function () {
+                        if (this.constraint.operator.indexOf("null") >= 0) Vue.set(this.constraint, "right", {});
+                        else Vue.set(this.constraint, "right", {type: "const"});
+                    },
+                }
+            }),
+            /*addSegmentation: Vue.component('syncopate-var', {
                 template: SyncopateVarTpl,
                 props: ["options"],
                 computed: {
@@ -834,7 +985,7 @@ define(["jquery", "underscore", "vue", 'Utils',
                     }
                 },
                 data: function () {
-                    console.log("options:"+JSON.stringify(this.options));
+                    console.log("options:" + JSON.stringify(this.options));
                     var tempOptions = this.options;
                     //this.options.temp = {scores: tempOptions};
                     return {
@@ -867,6 +1018,6 @@ define(["jquery", "underscore", "vue", 'Utils',
 
                     }
                 }
-            }),
+            }),*/
         };
     });

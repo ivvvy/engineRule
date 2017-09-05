@@ -40,7 +40,7 @@ import java.util.List;
 //TODO: 添加logger
 
 @Controller
-@RequestMapping(value = "/rulengine/{areaType}/strategyset")
+@RequestMapping(value = "/{areaType}/strategyset")
 public class StrategySetController {
 
     /*TODO:User Model 未设定，先将 userId,orgId设为定值，等权限管理完成之后再改*/
@@ -203,7 +203,6 @@ public class StrategySetController {
                     BeanUtils.copyProperties(strategy, strategyWithRunLevel);
                     for (StrategySet strategySetWithLevel : strategySetList) {
                         if (strategySetWithLevel.getStrategyName().equals(strategy.getStrategyName())) {
-                            strategyList.remove(strategy);
                             strategyWithRunLevel.setRunLevel(strategySetWithLevel.getRunLevel());
                             strategyWithRunLevelList.add(strategyWithRunLevel);
                             break;
@@ -219,6 +218,7 @@ public class StrategySetController {
                 strategySetQueryDetailResp.setRetMsg("成功");
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             strategySetQueryDetailResp.setRetCode("ff");
             strategySetQueryDetailResp.setRetMsg("失败");
         }
@@ -261,7 +261,9 @@ public class StrategySetController {
                     && checkStrategySetList.size() > 0
                     && (checkStrategySetList.get(0).getIsLock() != 1 || userId.equals(checkStrategySetList.get(0).getUserId()))) {
                 //TODO:从session获取用户信息
-                lockService.addStrategySetLock(userId, strategySet.getControlNo());
+                StrategySet checkStrategySet = checkStrategySetList.get(0);
+                checkStrategySet.setUserId(userId);
+                lockService.addStrategySetLock(checkStrategySet);
                 rulengineResponse.setRetCode("00");
                 rulengineResponse.setRetMsg("检出成功");
             } else {

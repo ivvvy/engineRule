@@ -43,29 +43,33 @@
                     <div class="tableBox">
                         <div class="tableButton">
                             <div class="conditionVar">
-                                <span class="icons icon-add-round"></span>
+                                <span class="icons icon-add-round" @click="addCondition"></span>
                                 插入条件变量
                             </div>
                             <div class="resVar">
-                                <span class="icons icon-add-round"></span>
+                                <span class="icons icon-add-round" @click="addResult"></span>
                                 插入结果变量
                             </div>
                         </div>
                         <div class="rightBox" v-if="show">
                             <select v-model="line.operator" @change="changeOperator">
+                                <option value="">选择关系</option>
                                 <option v-for="op in operates" :value="op.value">{{op.name}}</option>
                             </select>
-                            <right-part v-bind:right="right" v-bind:withfn="true" v-if="line.operator.indexOf('null') < 0"></right-part>
+                            <right-part v-bind:right="line.right" v-bind:withfn="true" ref="rightPart" v-if="line.operator.indexOf('null') < 0" ></right-part>
                             <button class="btn_success" @click="getRightPart" style="height: 30px;line-height: 30px">确定</button>
                             <button class="btn_cancel" style="height: 30px;line-height: 30px">取消</button>
                         </div>
                     </div>
                     <div id="table">
                         <table>
-                            <tr v-for="row in rows">
-                                <td v-for="col in row" v-bind:col="col" v-on:click.self="openVarList">
-                                    {{col}}
-                                </td>
+                            <tr v-for="(item,index) in varCondition">
+                                <td v-for="data in item"><input type="text" readonly="readonly" v-model="data.name" @click="estimate"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr v-for="(items,index) in result">
+                                <td v-for="data in items"><input type="text" readonly="readonly" v-model="data.name"></td>
                             </tr>
                         </table>
                     </div>
