@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>矩阵</title>
+    <script type="text/javascript" src="../../js/libs/require.js" data-main="../../js/main.js"
+            data-entry="js/modules/basic/matrix"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/matrix.css"/>
+</head>
+<body>
+<div id="body">
+    <layout-main path="规则工程->底层->策略->决策矩阵详情">
+        <div slot="content">
+            <div class="mainContent">
+                <div class="title">决策矩阵</div>
+                <div class="body">
+                    <div class="detail_line">
+                        <span class="desc">名称</span>
+                        <span>{{formData.strategyName}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">描述</span>
+                        <span>{{formData.description}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">分类</span>
+                        <span>{{formData.sort}}</span>
+                    </div>
+                    <hr>
+                    <div style="margin: 20px 0;">决策矩阵定义</div>
+                    <div class="detail_line">
+                        <span class="desc">行变量</span>
+                        <span>{{rows.name}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">列变量</span>
+                        <span>{{cols.name}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">结果变量</span>
+                        <span>{{results.name}}</span>
+                    </div>
+                    <div class="table">
+                        <table class="matrixTable disable">
+                            <tr>
+                                <td></td>
+                                <td v-for="col in cols.conditions">
+                                    <span v-if="col.leftLine">
+                                        <span v-if="col.leftLine.right">
+                                            {{col.leftLine.right.value}}
+                                        </span>
+                                        {{col.leftLine.comparator | leftComparatorReverse}}
+                                    </span>
+                                    {{cols.name}}
+                                    <span v-if="col.rightLine">
+                                        {{col.rightLine.comparator}}
+                                        <span v-if="col.rightLine.right">
+                                            {{col.rightLine.right.value}}
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr v-for="(row,index) in rows.conditions">
+                                <td>
+                                    <span v-if="row.leftLine">
+                                        <span v-if="row.leftLine.right">
+                                            {{row.leftLine.right.value}}
+                                        </span>
+                                        {{row.leftLine.comparator | leftComparatorReverse}}
+                                    </span>
+                                    {{rows.name}}
+                                    <span v-if="row.rightLine">
+                                        {{row.rightLine.comparator}}
+                                        <span v-if="row.rightLine.right">
+                                            {{row.rightLine.right.value}}
+                                        </span>
+                                    </span>
+                                </td>
+                                <td v-on:click="editResultOutcome(results.outcomes[index * (cols.conditions || []).length + i -1],(index * (cols.conditions || []).length + i -1))"
+                                    v-for="i in (cols.conditions || []).length"
+                                    v-bind:class="setIndex == (index * (cols.conditions || []).length + i -1) ? 'visited':''">
+                                    <template
+                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='const'">
+                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] ||{}).value}}
+                                    </template>
+                                    <template
+                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='var'">
+                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).name}}
+                                    </template>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="readCode" v-bind:class="openSource?'opened':''" v-on:click.self="readSourceCode">
+                        查看源代码
+                        <span class="icons icon-chevron-right"></span>
+                    </div>
+                    <div class="ace-area" id="ace-area" v-show="openSource">
+
+                    </div>
+                    <hr>
+                    <div class="detail_line">
+                        <span class="desc">创建人</span>
+                        <span>{{formData.creater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">创建时间</span>
+                        <span>{{formData.createTime}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新人</span>
+                        <span>{{formData.updater}}</span>
+                    </div>
+                    <div class="detail_line">
+                        <span class="desc">更新时间</span>
+                        <span>{{formData.updateTime}}</span>
+                    </div>
+                    <div style="margin: 40px 108px 20px;">
+                        <button class="btn_success" v-if="withEdit()" v-on:click="editMatrix">编辑</button>
+                        <button v-on:click="cancelEdit">返回</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </layout-main>
+</div>
+</body>
+</html>

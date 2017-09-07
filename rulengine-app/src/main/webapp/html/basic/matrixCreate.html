@@ -20,7 +20,11 @@
                         <span class="desc"><span class="redX">*</span>名称</span>
 
                         <div class="input">
-                            <input type="text" style="width: 350px" v-model="formData.strategyName">
+                            <input type="text" style="width: 350px" v-model="formData.strategyName"
+                                   v-bind:readonly="hasServerData"
+                                   v-bind:class="(!!validateResult.strategyName && validateResult.strategyName.result == false) ? 'error':''">
+                           <span class="error_tip"
+                                 v-if="!!validateResult.strategyName && validateResult.strategyName.result == false">{{validateResult.strategyName.message}}</span>
 
                             <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
                         </div>
@@ -29,7 +33,10 @@
                         <span class="desc"><span class="redX">*</span>描述</span>
 
                         <div class="input">
-                            <input type="text" style="width: 350px" v-model="formData.description">
+                            <input type="text" style="width: 350px" v-model="formData.description"
+                                   v-bind:class="(!!validateResult.description && validateResult.description.result == false) ? 'error':''">
+                            <span class="error_tip"
+                                  v-if="!!validateResult.description && validateResult.description.result == false">{{validateResult.description.message}}</span>
 
                             <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
                         </div>
@@ -38,7 +45,10 @@
                         <span class="desc"><span class="redX">*</span>分类</span>
 
                         <div class="input">
-                            <input type="text" style="width: 350px" v-model="formData.sort">
+                            <input type="text" style="width: 350px" v-model="formData.sort"
+                                   v-bind:class="(!!validateResult.sort && validateResult.sort.result == false) ? 'error':''">
+                            <span class="error_tip"
+                                  v-if="!!validateResult.sort && validateResult.sort.result == false">{{validateResult.sort.message}}</span>
 
                             <div class="tip">不超过100位，可由英文、数字和下划线组成</div>
                         </div>
@@ -51,10 +61,13 @@
 
                             <div class="input">
                                 <input class="variableSelect rowsVal" type="text" readonly="readonly"
-                                       placeholder="请选择变量" @click="openRowVarList" v-model="rows.name">
+                                       placeholder="请选择变量" @click="openRowVarList" v-model="rows.name"
+                                       v-bind:class="(!!validateResult.rows && validateResult.rows.result == false) ? 'error':''">
                                 <button class="segmentation rowModal" @click="syncopateVar('行',rows.conditions)"
                                         v-if="!!rows.name">切分表
                                 </button>
+                                <span class="error_tip"
+                                      v-if="!!validateResult.rows && validateResult.rows.result == false">{{validateResult.rows.message}}</span>
                             </div>
 
                         </div>
@@ -63,10 +76,13 @@
 
                             <div class="input">
                                 <input class="variableSelect colsVal" type="text" readonly="readonly"
-                                       placeholder="请选择变量" @click="openColVarList" v-model="cols.name">
+                                       placeholder="请选择变量" @click="openColVarList" v-model="cols.name"
+                                       v-bind:class="(!!validateResult.cols && validateResult.cols.result == false) ? 'error':''">
                                 <button class="segmentation colModal" v-if="!!cols.name"
                                         @click="syncopateVar('列',cols.conditions)">切分表
                                 </button>
+                                <span class="error_tip"
+                                      v-if="!!validateResult.cols && validateResult.cols.result == false">{{validateResult.cols.message}}</span>
                             </div>
                         </div>
                         <div class="line">
@@ -74,17 +90,24 @@
 
                             <div class="input">
                                 <input class="variableSelect resultsVal" type="text" readonly="readonly"
-                                       placeholder="请选择变量" @click="openResVarList" v-model="results.name">
+                                       placeholder="请选择变量" @click="openResVarList" v-model="results.name"
+                                       v-bind:class="(!!validateResult.results && validateResult.results.result == false) ? 'error':''">
+                                <span class="error_tip"
+                                      v-if="!!validateResult.results && validateResult.results.result == false">{{validateResult.results.message}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="rightBox">
+                    <div class="rightBox" v-if="show">
+                        <select v-model="right.operator">
+                            <option value="">选择关系</option>
+                            <option v-for="op in operates" :value="op.value">{{op.name}}</option>
+                        </select>
                         <right-part v-bind:right="right" v-bind:withfn="false"></right-part>
                         <button class="btn_success" style="height: 30px;line-height: 30px" v-on:click="resetOutcome">
                             确定
                         </button>
                         <button class="btn_cancel" style="height: 30px;line-height: 30px"
-                                v-on:click="right={type:'const'}">取消
+                                v-on:click="right={type:'const',operator:'='}">取消
                         </button>
                     </div>
                     <div class="table">
@@ -123,16 +146,14 @@
                                         </span>
                                     </span>
                                 </td>
-                                <td v-on:click="editResultOutcome(results.outcomes[index * (cols.conditions || []).length + i -1],(index * (cols.conditions || []).length + i -1))"
-                                    v-for="i in (cols.conditions || []).length"
-                                    v-bind:class="setIndex == (index * (cols.conditions || []).length + i -1) ? 'visited':''">
-                                    <template
-                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='const'">
-                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] ||{}).value}}
+                                <td v-for="(outcome,i) in outcomes[index]"
+                                    v-on:click="editResultOutcome(outcome,index,i)"
+                                    v-bind:class="(rowIndex == index && colIndex == i) ? 'visited':''">
+                                    <template v-if="outcome.type=='const'">
+                                        {{outcome.value}}
                                     </template>
-                                    <template
-                                            v-if="(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).type=='var'">
-                                        {{(results.outcomes[index * (cols.conditions || []).length + i -1] || {}).name}}
+                                    <template v-if="outcome.type=='var'">
+                                        {{outcome.name}}
                                     </template>
                                 </td>
                             </tr>
@@ -147,8 +168,8 @@
                     </div>
                     <div style="margin: 20px 60px;">
                         <button class="btn_success_empty">编译</button>
-                        <button class="btn_success">保存</button>
-                        <button>取消</button>
+                        <button class="btn_success" v-on:click="save">保存</button>
+                        <button v-on:click="cancelEdit">取消</button>
                     </div>
                 </div>
             </div>
