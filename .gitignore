@@ -1,0 +1,17 @@
+rulengine-app/.classpath
+rulengine-app/.settings/.jsdtscope
+rulengine-app/.settings/org.eclipse.jdt.core.prefs
+rulengine-app/.settings/org.eclipse.m2e.core.prefs
+rulengine-app/.settings/org.eclipse.wst.common.component
+rulengine-app/.settings/org.eclipse.wst.common.project.facet.core.xml
+rulengine-app/.settings/org.eclipse.wst.jsdt.ui.superType.container
+rulengine-app/.settings/org.eclipse.wst.jsdt.ui.superType.name
+rulengine-app/.settings/org.eclipse.wst.validation.prefs
+rulengine-app/.gitignore
+rulengine-app/.settings/org.eclipse.core.resources.prefs
+rulengine-app/target
+rulengine-app/.project
+rulengine-app/*.iml
+rulengine-app/.idea
+rulengine-app/.settings/
+
